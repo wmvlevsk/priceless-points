@@ -23,7 +23,7 @@ global.should = chai.should()
 const __karmaWebpackManifest__ = []; // eslint-disable-line
 const inManifest = (path) => ~__karmaWebpackManifest__.indexOf(path)
 
-// require all `tests/**/*.spec.js`
+// require all `src/**/*.spec.js`
 const testsContext = require.context('./', true, /\.spec\.js$/)
 
 // only run tests that have changed after the first pass.
