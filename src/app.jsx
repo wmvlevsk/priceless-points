@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header/header'
-import Todos from './components/List/list';
-import TodoItem from './components/PlayerDetail/playerDetail';
+import ListPlayers from './components/ListPlayers/listPlayers';
+import PlayerDetail from './components/PlayerDetail/playerDetail';
 import './index.scss';
 import $ from 'jquery';
 
@@ -9,21 +9,21 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: []
+      listPlayers: []
     }
   }
 
   componentWillMount() {
-    this.getTodos();
+    this.getListPlayers();
   }
 
-  getTodos() {
+  getListPlayers() {
     $.ajax({
       url: 'https://jsonplaceholder.typicode.com/todos',
       dataType: 'json',
       cache: false,
       success: function (data) {
-        this.setState({ todos: data }, function () {
+        this.setState({ listPlayers: data }, function () {
           console.log(this.state);
         })
       }.bind(this),
@@ -34,14 +34,14 @@ export default class App extends React.Component {
   }
 
   ComponentDidMount() {
-    this.getTodos();
+    this.getListPlayers();
   }
 
   render() {
     return (
       <div>
         <Header />
-        <Todos todos={this.state.todos} />
+        <ListPlayers listPlayers={this.state.listPlayers} />
       </div>
     )
   }

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-class TodoItem extends Component {
+class PlayerDetail extends Component {
   render() {
     return (
-      <li className="Todo">
-        <strong>{this.props.todo.title}</strong>
+      <li className="PlayerDetail">
+        <strong>{this.props.playerDetail.title}</strong>
       </li>
     );
   }
 }
 
-TodoItem.propTypes = {
-  todo: React.PropTypes.object
+PlayerDetail.propTypes = {
+  playerDetail: React.PropTypes.object
 }
-export default TodoItem;
+export default PlayerDetail;
