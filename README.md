@@ -8,3 +8,11 @@ node
 
 ### mysql setup
 Use the docs/quick_start.* scripts to create the mysql schema.
+
+###
+Run ```yarn```
+Then run ```yarn run dev``` or ```yarn start``` to get the application.
+
+Access the app here:
+
+http://localhost:8888
