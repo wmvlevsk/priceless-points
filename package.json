@@ -1,49 +1,37 @@
 {
-  "name": "react-webpack-babel",
-  "version": "0.0.3",
-  "description": "React Webpack Babel Starter Kit",
-  "main": "''",
+  "name": "priceless-points",
+  "version": "0.0.1",
+  "engines": {
+    "node": "5.12.0"
+  },
+  "description": "Pulse Points Leaderboard, with help from https://github.com/dengjonathan/how-far-HR/",
+  "author": "Vesko Levski, Eric Wong",
+  "private": false,
   "scripts": {
-    "build": "webpack --config webpack.production.config.js --progress --profile --colors",
-    "start": "webpack-dev-server --progress --profile --colors",
-    "lint": "eslint --ext js --ext jsx src || exit 0",
-    "dev": " webpack-dashboard -- webpack-dev-server --progress --profile --colors"
+    "start": "node dist/app.js",
+    "dev-start": "webpack-dev-server --progress --colors --hot --inline",
+    "build": "webpack --config ./webpack.deployment.config.js --progress --colors"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alicoding/react-webpack-babel"
-  },
-  "author": "Ali Al Dallal",
-  "license": "MIT",
-  "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
   "dependencies": {
-    "jquery": "^3.2.1",
-    "material-ui": "^0.17.4",
-    "node-sass": "^4.3.0",
-    "react": "15.4.2",
-    "react-dom": "15.4.2",
-    "sass-loader": "^6.0.2"
+    "babel-core": "^6.17.0",
+    "bootstrap": "^4.0.0-alpha.2",
+    "express": "^4.14.0",
+    "file-loader": "^0.11.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "redux": "^3.6.0",
+    "underscore": "^1.8.3",
+    "webpack-dev-server": "^2.4.5"
   },
   "devDependencies": {
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
-    "babel-plugin-transform-class-properties": "^6.22.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-preset-es2015": "6.22.0",
-    "babel-preset-react": "^6.23.0",
-    "babel-runtime": "^6.22.0",
-    "css-loader": "0.26.1",
-    "extract-text-webpack-plugin": "^v2.0.0-rc.1",
-    "file-loader": "^0.10.0",
-    "html-webpack-plugin": "^2.26.0",
-    "postcss-loader": "^1.2.2",
-    "react-hot-loader": "^3.0.0-beta.6",
-    "style-loader": "0.13.1",
-    "url-loader": "0.5.7",
-    "webpack": "^2.2.1",
-    "webpack-cleanup-plugin": "^0.4.2",
-    "webpack-dashboard": "^0.3.0",
-    "webpack-dev-server": "^2.4.1"
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "react-hot-loader": "^3.0.0-beta.5",
+    "webpack": "^2.4.1",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
   }
 }
