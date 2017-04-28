@@ -11,7 +11,7 @@ Use the docs/quick_start.* scripts to create the mysql schema.
 
 ###
 Run ```yarn```
-Then run ```yarn run dev``` or ```yarn start``` to get the application.
+Then run ```yarn dev-start``` to get the application.
 
 Access the app here:
 
