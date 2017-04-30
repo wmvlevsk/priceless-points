@@ -1,15 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const manageDB = require('../manageDB');
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'POINTS_USER',
-  password: 'POINTS_USER',
-  database: 'POINTS'
-});
-
-
 
 // declare axios for making http requests
 const axios = require('axios');
@@ -35,23 +26,10 @@ router.get('/posts', (req, res) => {
 
 // Get all posts
 router.get('/employees', (req, res) => {
-  // Get posts from the mock api
-  connection.connect();
 
-  connection.query('SELECT * FROM employee', function (err, rows) {
-    connection.end();
-    res.status(200).json(JSON.stringify(rows));
-    // res.status(200).json(rows.data);
-    // res.render('employee', {employee : rows});
+  manageDB.executeQuery('SELECT * FROM employee', function (err, data) {
+    res.status(200).json(JSON.stringify(data.rows));
   });
-
-  // axios.get(`${API}/posts`)
-  //   .then(posts => {
-  //     res.status(200).json(posts.data);
-  //   })
-  //   .catch(error => {
-  //     res.status(500).send(error)
-  //   });
 });
 
 module.exports = router;
