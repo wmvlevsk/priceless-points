@@ -30,7 +30,10 @@ router.get('/posts', (req, res) => {
  * Also has escaped parameters to protect against SQL injection.
  * @param {string} /:q
  */
-router.get('/employees/:q', (req, res) => {
+router.get('/employees/:q?', (req, res) => {
+  if(req.params.q == null){
+    req.params.q = "";
+  }
   var query_string = "%".concat(req.params.q, "%");
   var query_num = req.params.q;
   manageDB.executeQueryWithParams('SELECT * FROM EMPLOYEE WHERE FIRST_NAME LIKE ? OR LAST_NAME LIKE ? OR EMPLOYEE_ID = ?', [query_string, query_string, query_num], function (err, data) {
