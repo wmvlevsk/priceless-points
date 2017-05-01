@@ -31,7 +31,7 @@ router.get('/posts', (req, res) => {
  * @param {string} /:q
  */
 router.get('/employees/:q?', (req, res) => {
-  if(req.params.q == null){
+  if (req.params.q == null) {
     req.params.q = "";
   }
   var query_string = "%".concat(req.params.q, "%");
@@ -63,4 +63,32 @@ router.get('/points', (req, res) => {
     res.status(200).json(data.rows);
   });
 });
+
+
+/**
+ * Event information from upcoming days
+ * Also has escaped parameters to protect against SQL injection.
+ * Takes negative values as well
+ * @param {int} /:time
+ */
+router.get('/currentEvents/:time?', (req, res) => {
+  var time = req.params.time;
+  console.log(time);
+  if (req.params.time == null) {
+    manageDB.executeQuery('SELECT * FROM EVENT', function (err, data) {
+      res.status(200).json(data.rows);
+    });
+  }
+  if (time <= 0) {
+    manageDB.executeQueryWithParams('SELECT * FROM EVENT WHERE ENT_DT BETWEEN DATE_SUB(NOW(), INTERVAL ? DAY) AND NOW()', [time*-1], function (err, data) {
+      res.status(200).json(data.rows);
+    });
+  }
+  else {
+    manageDB.executeQueryWithParams('SELECT * FROM EVENT WHERE ENT_DT BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL ? DAY)', [time], function (err, data) {
+      res.status(200).json(data.rows);
+    });
+  }
+});
+
 module.exports = router;
