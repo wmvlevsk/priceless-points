@@ -49,7 +49,7 @@ router.get('/employees/:q?', (req, res) => {
  */
 router.get('/employee/:id', (req, res) => {
   var e_id = req.params.id;
-  manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name, a.activity_name, a.point_value FROM EMPLOYEE e LEFT JOIN POINT_TALLY pt ON e.employee_id = pt.employee_id INNER JOIN ACTIVITY a ON pt.activity_id = a.id WHERE e.employee_id = ?', [e_id], function (err, data) {
+  manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name, pt.ent_dt, a.activity_name, a.point_value FROM EMPLOYEE e LEFT JOIN POINT_TALLY pt ON e.employee_id = pt.employee_id INNER JOIN ACTIVITY a ON pt.activity_id = a.id WHERE e.employee_id = ?', [e_id], function (err, data) {
     res.status(200).json(JSON.stringify(data.rows));
   });
 });
