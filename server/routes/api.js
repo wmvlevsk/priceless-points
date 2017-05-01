@@ -54,4 +54,13 @@ router.get('/employee/:id', (req, res) => {
   });
 });
 
+
+/**
+ * Points to be shown in the List view
+ */
+router.get('/points', (req, res) => {
+  manageDB.executeQuery('SELECT * FROM REF_POINTS', function (err, data) {
+    res.status(200).json(JSON.stringify(data.rows));
+  });
+});
 module.exports = router;
