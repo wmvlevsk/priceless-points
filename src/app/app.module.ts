@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 
 import { PostsService } from './posts/posts.service';
+import { LeaderboardService } from './leaderboard/leaderboard.service';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 // Define the routes
 const ROUTES = [
@@ -18,13 +20,18 @@ const ROUTES = [
   {
     path: 'posts',
     component: PostsComponent
+  },
+  {
+    path: 'leaderboard',
+    component: LeaderboardComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    PostsComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,10 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
-  providers: [PostsService],
+  providers: [
+    PostsService,
+    LeaderboardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

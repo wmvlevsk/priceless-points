@@ -73,7 +73,6 @@ router.get('/points', (req, res) => {
  */
 router.get('/currentEvents/:time?', (req, res) => {
   var time = req.params.time;
-  console.log(time);
   if (req.params.time == null) {
     manageDB.executeQuery('SELECT * FROM EVENT', function (err, data) {
       res.status(200).json(data.rows);
