@@ -39,6 +39,9 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
+  exports: [
+    RouterModule
+  ],
   providers: [
     PostsService,
     LeaderboardService

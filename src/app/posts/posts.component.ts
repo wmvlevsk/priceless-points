@@ -7,7 +7,7 @@ import { PostsService } from './posts.service';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  // instantiate posts to an empty array
+  // instantiate posts to an empty object
   posts: any = [];
 
   constructor(private postsService: PostsService) { }
