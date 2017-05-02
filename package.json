@@ -14,7 +14,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.1.0",
-    "@angular/common": "^2.3.1",
+    "@angular/common": "^4.0.2",
     "@angular/compiler": "^2.3.1",
     "@angular/core": "^2.3.1",
     "@angular/forms": "^2.3.1",
@@ -29,7 +29,7 @@
     "core-js": "^2.4.1",
     "express": "^4.15.2",
     "ionic-angular": "^3.1.1",
-    "material": "^0.1.1",
+    "ionicons": "^3.0.0",
     "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "rxjs": "^5.0.1",

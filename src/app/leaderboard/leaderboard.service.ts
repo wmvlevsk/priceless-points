@@ -11,4 +11,3 @@ export class LeaderboardService {
       .map(res => res.json());
   }
 }
-
