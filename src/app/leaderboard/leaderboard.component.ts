@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LeaderboardService } from './leaderboard.service';
 
 @Component({
-  selector: 'app-leaderboard',
+  selector: 'leaderboard',
   templateUrl: './leaderboard.component.html',
   styleUrls: ['./leaderboard.component.css']
 })
