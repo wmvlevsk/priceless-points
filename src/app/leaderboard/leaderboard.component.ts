@@ -12,6 +12,8 @@ export class LeaderboardComponent implements OnInit {
 
   constructor(private leaderboardService: LeaderboardService) { }
 
+  horizon: boolean = true;
+
   ngOnInit() {
     // Retrieve posts from the API
     this.leaderboardService.getFullList().subscribe(points => {

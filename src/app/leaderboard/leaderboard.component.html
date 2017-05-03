@@ -27,4 +27,21 @@
       </tr>
     </table>
   </div>
+  <div>
+    <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button> horizon = {{horizon}}
+    <br>
+    <div *ngIf="horizon; else annualBlock">
+      <table>
+        <tr>
+          <th>Member</th>
+          <th>Q3</th>
+        </tr>
+        <tr *ngFor="let point of points">
+          <td>{{point.FIRST_NAME}} {{point.LAST_NAME}}</td>
+          <td>{{point.Q3_PTS}}</td>
+        </tr>
+      </table>
+    </div>
+    <template #annualBlock>HOLD MY D</template>
+  </div>
 </div>
