@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row" *ngFor="let point of points">
-    <div class="card card-block">
+  <div class="row" *ngFor="let point of points; let i=index">
+    <div class="card card-block" *ngIf="i<3">
       <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
       <p class="card-text">{{point.FY_PTS}}</p>
       <a href="#" class="card-link">Card link</a>
@@ -28,7 +28,8 @@
     </table>
   </div>
   <div>
-    <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button> horizon = {{horizon}}
+    <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button>
+    We are currently in Q{{dateInformation.currentQuarter}} and there are {{dateInformation.daysLeft}} days left until the next quarter.
     <br>
     <div *ngIf="horizon; else annualBlock">
       <table>
@@ -42,6 +43,17 @@
         </tr>
       </table>
     </div>
-    <template #annualBlock>HOLD MY D</template>
+    <ng-template #annualBlock>
+      <table>
+        <tr>
+          <th>Member</th>
+          <th>FY</th>
+        </tr>
+        <tr *ngFor="let point of points">
+          <td>{{point.FIRST_NAME}} {{point.LAST_NAME}}</td>
+          <td>{{point.FY_PTS}}</td>
+        </tr>
+      </table>
+    </ng-template>
   </div>
 </div>
