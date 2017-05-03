@@ -9,12 +9,13 @@ import { PostsComponent } from './posts/posts.component';
 import { PostsService } from './posts/posts.service';
 import { LeaderboardService } from './leaderboard/leaderboard.service';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { FullListComponent } from './full-list/full-list.component';
 
 // Define the routes
 const ROUTES = [
   {
     path: '',
-    redirectTo: 'posts',
+    redirectTo: 'leaderboard',
     pathMatch: 'full'
   },
   {
@@ -24,6 +25,10 @@ const ROUTES = [
   {
     path: 'leaderboard',
     component: LeaderboardComponent
+  },
+  {
+    path: 'fullList',
+    component: FullListComponent
   }
 ];
 
@@ -31,7 +36,8 @@ const ROUTES = [
   declarations: [
     AppComponent,
     PostsComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    FullListComponent
   ],
   imports: [
     BrowserModule,

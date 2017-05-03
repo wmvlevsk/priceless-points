@@ -8,26 +8,6 @@
     </div>
   </div>
   <div>
-    <table>
-      <tr>
-        <th>Member</th>
-        <th>Q1</th>
-        <th>Q2</th>
-        <th>Q3</th>
-        <th>Q4</th>
-        <th>FY</th>
-      </tr>
-      <tr *ngFor="let point of points">
-        <td>{{point.FIRST_NAME}} {{point.LAST_NAME}}</td>
-        <td>{{point.Q1_PTS}}</td>
-        <td>{{point.Q2_PTS}}</td>
-        <td>{{point.Q3_PTS}}</td>
-        <td>{{point.Q4_PTS}}</td>
-        <td>{{point.FY_PTS}}</td>
-      </tr>
-    </table>
-  </div>
-  <div>
     <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button>
     We are currently in Q{{dateInformation.currentQuarter}} and there are {{dateInformation.daysLeft}} days left until the next quarter.
     <br>
