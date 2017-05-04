@@ -7,9 +7,9 @@ export class UserDetailService {
   constructor(private http: Http) { }
   // Get all posts from the API
   url = 'http://localhost:3000';
-
-  getEmployeeInfo(eID: Number) {
-    return this.http.get(this.url + '/api/employee/'+ eID)
+  
+  getEmployeeInfo(id: Number) {
+    return this.http.get(this.url + '/api/employee/'+ id)
       .map(res => res.json());
   }
 }

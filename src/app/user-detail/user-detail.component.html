@@ -1,6 +1,6 @@
-<p>The employee ID selected is: {{employeeID}}</p>
-<button (click)="retrieveInfo()">CLICK ME</button>
-  <div *ngIf="employeeInfo != undefined && employeeInfo.length !=0">
+<div *ngIf="employeeInfo">
+  <div *ngIf="employeeInfo.activities; else emptyInfo">
+    <p>The employee selected is: {{employeeInfo.first_name}} {{employeeInfo.last_name}}</p>
     <table>
       <tr>
         <th>Event</th>
@@ -14,3 +14,9 @@
       </tr>
     </table>
   </div>
+  <ng-template #emptyInfo>
+    <p>The employee selected is: {{employeeInfo.first_name}} {{employeeInfo.last_name}}</p>
+    <p>Unfortunately, they don't currently have any points.</p>
+  </ng-template>
+</div>
+<button (click)="goBack()">Back</button>

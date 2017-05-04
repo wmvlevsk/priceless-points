@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
+import 'rxjs/add/operator/switchMap';
+
 import { UserDetailService } from './user-detail.service';
 
 @Component({
@@ -9,18 +13,24 @@ import { UserDetailService } from './user-detail.service';
 export class UserDetailComponent implements OnInit {
   @Input() employeeID: number;
   employeeInfo: Object;
-  constructor(private userDetailService: UserDetailService) { }
+  constructor(
+    private userDetailService: UserDetailService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) { }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.route.params
+      .switchMap((params: Params) => this.userDetailService.getEmployeeInfo(+params['id']))
+      .subscribe(info => {
+        this.employeeInfo = info;
+        console.log(this.employeeInfo);
+      });
   }
 
-  retrieveInfo(){
-        // Retrieve posts from the API
-    this.userDetailService.getEmployeeInfo(this.employeeID).subscribe(info => {
-      this.employeeInfo = info;
-      console.log(this.employeeInfo);
-    });
+  goBack(): void {
+    this.location.back();
   }
 
 }

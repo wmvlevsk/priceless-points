@@ -37,6 +37,10 @@ const ROUTES = [
   {
     path: 'fireworks',
     component: FireworksComponent
+  },
+  {
+    path: 'user/:id',
+    component: UserDetailComponent
   }
 ];
 
@@ -46,7 +50,8 @@ const ROUTES = [
     PostsComponent,
     LeaderboardComponent,
     FullListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    FireworksComponent
   ],
   imports: [
     BrowserModule,

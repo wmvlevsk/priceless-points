@@ -1,16 +1,13 @@
 <div class="container">
   <div class="row" *ngFor="let point of points; let i=index">
-    <div class="card card-block" *ngIf="i<3" (click)="onSelect(point.EMPLOYEE_ID)">
-      <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
-      <p class="card-text">{{point.FY_PTS}}</p>
-    </div>
+      <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
+        <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
+        <p class="card-text">{{point.FY_PTS}}</p>
+        </div>
   </div>
   <div>
-    <user-detail [employeeID]="selectedEmployeeID"></user-detail>
-  </div>
-  <div>
-    <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button>
-    We are currently in Q{{dateInformation.currentQuarter}} and there are {{dateInformation.daysLeft}} days left until the next quarter.
+    <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button> We are currently in Q{{dateInformation.currentQuarter}}
+    and there are {{dateInformation.daysLeft}} days left until the next quarter.
     <br>
     <div *ngIf="horizon; else annualBlock">
       <table>

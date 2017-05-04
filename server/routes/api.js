@@ -50,14 +50,14 @@ router.get('/employees/:q?', (req, res) => {
 router.get('/employee/:id', (req, res) => {
   var e_id = req.params.id;
   manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name, pt.ent_dt, a.activity_name, a.point_value FROM EMPLOYEE e LEFT JOIN POINT_TALLY pt ON e.employee_id = pt.employee_id INNER JOIN ACTIVITY a ON pt.activity_id = a.id WHERE e.employee_id = ?', [e_id], function (err, data) {
-    if(data.rows.length > 0){
+    if (data.rows.length > 0) {
       var activities = [];
-      for(var i = 0; i < data.rows.length; i++){
+      for (var i = 0; i < data.rows.length; i++) {
         activities.push({
-            "activity_name": data.rows[i].activity_name, 
-            "ent_dt": data.rows[i].ent_dt,
-            "point_value": data.rows[i].point_value
-          });
+          "activity_name": data.rows[i].activity_name,
+          "ent_dt": data.rows[i].ent_dt,
+          "point_value": data.rows[i].point_value
+        });
       }
       var responseObject = {
         "first_name": data.rows[0].first_name,
@@ -66,8 +66,14 @@ router.get('/employee/:id', (req, res) => {
       }
       res.status(200).json(responseObject);
     }
-    else{
-      res.status(200).json(data.rows);
+    else {
+      manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name FROM EMPLOYEE e WHERE e.employee_id = ?', [e_id], function (err, data) {
+        var responseObject = {
+          "first_name": data.rows[0].first_name,
+          "last_name": data.rows[0].last_name
+        }
+        res.status(200).json(responseObject);
+      });
     }
   });
 });
@@ -97,7 +103,7 @@ router.get('/currentEvents/:time?', (req, res) => {
     });
   }
   if (time <= 0) {
-    manageDB.executeQueryWithParams('SELECT * FROM EVENT WHERE ENT_DT BETWEEN DATE_SUB(NOW(), INTERVAL ? DAY) AND NOW()', [time*-1], function (err, data) {
+    manageDB.executeQueryWithParams('SELECT * FROM EVENT WHERE ENT_DT BETWEEN DATE_SUB(NOW(), INTERVAL ? DAY) AND NOW()', [time * -1], function (err, data) {
       res.status(200).json(data.rows);
     });
   }
