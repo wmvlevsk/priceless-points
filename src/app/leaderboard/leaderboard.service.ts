@@ -6,8 +6,10 @@ import 'rxjs/add/operator/map';
 export class LeaderboardService {
   constructor(private http: Http) { }
   // Get all posts from the API
+  url = 'http://localhost:3000';
+
   getFullList() {
-    return this.http.get('/api/points')
+    return this.http.get(this.url + '/api/points')
       .map(res => res.json());
   }
 }
