@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
+import * as $ from 'jquery';
 
 import { PostsService } from './posts/posts.service';
 import { LeaderboardService } from './leaderboard/leaderboard.service';
@@ -12,6 +13,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { FullListComponent } from './full-list/full-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailService } from './user-detail/user-detail.service';
+import { FireworksComponent } from './fireworks/fireworks.component';
 
 // Define the routes
 const ROUTES = [
@@ -31,6 +33,10 @@ const ROUTES = [
   {
     path: 'fullList',
     component: FullListComponent
+  },
+  {
+    path: 'fireworks',
+    component: FireworksComponent
   }
 ];
 
