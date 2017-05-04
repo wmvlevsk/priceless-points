@@ -10,6 +10,8 @@ import { PostsService } from './posts/posts.service';
 import { LeaderboardService } from './leaderboard/leaderboard.service';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { FullListComponent } from './full-list/full-list.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserDetailService } from './user-detail/user-detail.service';
 
 // Define the routes
 const ROUTES = [
@@ -37,7 +39,8 @@ const ROUTES = [
     AppComponent,
     PostsComponent,
     LeaderboardComponent,
-    FullListComponent
+    FullListComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ const ROUTES = [
   ],
   providers: [
     PostsService,
-    LeaderboardService
+    LeaderboardService,
+    UserDetailService
   ],
   bootstrap: [AppComponent]
 })

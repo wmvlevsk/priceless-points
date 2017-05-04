@@ -3,14 +3,13 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class PostsService {
-
+export class UserDetailService {
   constructor(private http: Http) { }
-
-  url = 'http://localhost:3000';
   // Get all posts from the API
-  getAllPosts() {
-    return this.http.get(this.url + '/api/posts')
+  url = 'http://localhost:3000';
+
+  getEmployeeInfo(eID: Number) {
+    return this.http.get(this.url + '/api/employee/'+ eID)
       .map(res => res.json());
   }
 }

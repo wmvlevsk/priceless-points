@@ -10,6 +10,7 @@ export class LeaderboardComponent implements OnInit {
   // instantiate posts to an empty array
   points: any = [];
   dateInformation: Object;
+  selectedEmployeeID: Number;
 
   constructor(private leaderboardService: LeaderboardService) { }
 
@@ -36,6 +37,10 @@ export class LeaderboardComponent implements OnInit {
     var millis2 = nextq.getTime();
     return {daysLeft: Math.round((millis2 - millis1) / 1000 / 60 / 60 / 24),
     currentQuarter: quarter};
+  }
+
+  onSelect(employeeID: Number): void {
+    this.selectedEmployeeID = employeeID;
   }
 
 }

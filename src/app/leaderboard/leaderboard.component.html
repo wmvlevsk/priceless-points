@@ -1,11 +1,12 @@
 <div class="container">
   <div class="row" *ngFor="let point of points; let i=index">
-    <div class="card card-block" *ngIf="i<3">
+    <div class="card card-block" *ngIf="i<3" (click)="onSelect(point.EMPLOYEE_ID)">
       <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
       <p class="card-text">{{point.FY_PTS}}</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
     </div>
+  </div>
+  <div>
+    <user-detail [employeeID]="selectedEmployeeID"></user-detail>
   </div>
   <div>
     <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button>

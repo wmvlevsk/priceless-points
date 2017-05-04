@@ -1,0 +1,16 @@
+<p>The employee ID selected is: {{employeeID}}</p>
+<button (click)="retrieveInfo()">CLICK ME</button>
+  <div *ngIf="employeeInfo != undefined && employeeInfo.length !=0">
+    <table>
+      <tr>
+        <th>Event</th>
+        <th>Date</th>
+        <th>Points</th>
+      </tr>
+      <tr *ngFor="let activity of employeeInfo.activities">
+        <td>{{activity.activity_name}}</td>
+        <td>{{activity.ent_dt}}</td>
+        <td>{{activity.point_value}}</td>
+      </tr>
+    </table>
+  </div>
