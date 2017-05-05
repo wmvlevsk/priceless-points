@@ -1,27 +1,34 @@
 <div class="container">
-  <div class="row" *ngFor="let point of points; let i=index">
-      <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
-        <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
-        <p class="card-text">{{point.FY_PTS}}</p>
-        </div>
-  </div>
   <div>
-    <button (click)="horizon = !horizon">{{horizon ? 'Annual' : 'Quarterly'}} View</button> We are currently in Q{{dateInformation.currentQuarter}}
+    <h2>{{!horizon ? 'Annual' : 'Quarterly'}} </h2>
+    <button (click)="toggleView()">Switch to {{horizon ? 'Annual' : 'Quarterly'}} View</button> We are currently in Q{{dateInformation.currentQuarter}}
     and there are {{dateInformation.daysLeft}} days left until the next quarter.
     <br>
     <div *ngIf="horizon; else annualBlock">
+      <div class="row" *ngFor="let point of points; let i=index">
+        <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
+          <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
+          <p class="card-text">{{point.quarter}}</p>
+        </div>
+      </div>
       <table>
         <tr>
           <th>Member</th>
-          <th>Q3</th>
+          <th>Q{{dateInformation.currentQuarter}}</th>
         </tr>
         <tr *ngFor="let point of points">
           <td>{{point.FIRST_NAME}} {{point.LAST_NAME}}</td>
-          <td>{{point.Q3_PTS}}</td>
+          <td>{{point.quarter}}</td>
         </tr>
       </table>
     </div>
     <ng-template #annualBlock>
+      <div class="row" *ngFor="let point of points; let i=index">
+        <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
+          <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
+          <p class="card-text">{{point.FY_PTS}}</p>
+        </div>
+      </div>
       <table>
         <tr>
           <th>Member</th>

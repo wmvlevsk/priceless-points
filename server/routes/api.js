@@ -49,6 +49,7 @@ router.get('/employees/:q?', (req, res) => {
  */
 router.get('/employee/:id', (req, res) => {
   var e_id = req.params.id;
+  var quarter = 0;
   manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name, pt.ent_dt, a.activity_name, a.point_value FROM EMPLOYEE e LEFT JOIN POINT_TALLY pt ON e.employee_id = pt.employee_id INNER JOIN ACTIVITY a ON pt.activity_id = a.id WHERE e.employee_id = ?', [e_id], function (err, data) {
     if (data.rows.length > 0) {
       var activities = [];
@@ -84,6 +85,24 @@ router.get('/employee/:id', (req, res) => {
  */
 router.get('/points', (req, res) => {
   manageDB.executeQuery('SELECT * FROM REF_POINTS', function (err, data) {
+    var today = new Date();
+    quarter = Math.floor((today.getMonth() + 3) / 3);
+    for (var i = 0; i < data.rows.length; i++) {
+      switch (quarter) {
+        case 1:
+          data.rows[i].quarter = data.rows[i].Q1_PTS;
+          break;
+        case 2:
+          data.rows[i].quarter = data.rows[i].Q2_PTS;
+          break;
+        case 3:
+          data.rows[i].quarter = data.rows[i].Q3_PTS;
+          break;
+        case 4:
+          data.rows[i].quarter = data.rows[i].Q4_PTS;
+          break;
+      }
+    }
     res.status(200).json(data.rows);
   });
 });

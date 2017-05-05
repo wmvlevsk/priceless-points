@@ -18,10 +18,11 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit() {
     // Retrieve posts from the API
-    this.leaderboardService.getFullList().subscribe(points => {
-      this.points = points;
-    });
     this.dateInformation = this.daysLeftInQuarter();
+    this.leaderboardService.getFullList().subscribe(points => {
+      this.points = points.sort(function(a,b){return b.quarter-a.quarter});
+    });
+
   }
 
   daysLeftInQuarter() {
@@ -35,12 +36,24 @@ export class LeaderboardComponent implements OnInit {
     }
     var millis1 = today.getTime();
     var millis2 = nextq.getTime();
-    return {daysLeft: Math.round((millis2 - millis1) / 1000 / 60 / 60 / 24),
-    currentQuarter: quarter};
+    return {
+      daysLeft: Math.round((millis2 - millis1) / 1000 / 60 / 60 / 24),
+      currentQuarter: quarter
+    };
   }
 
   onSelect(employeeID: Number): void {
     this.selectedEmployeeID = employeeID;
+  }
+
+  toggleView(){
+    this.horizon = !this.horizon;
+    if(this.horizon){
+      this.points = this.points.sort(function(a,b){return b.quarter-a.quarter});
+    }
+    else{
+      this.points = this.points.sort(function(a,b){return b.FY_PTS-a.FY_PTS});
+    }
   }
 
 }
