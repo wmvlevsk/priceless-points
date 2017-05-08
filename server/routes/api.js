@@ -6,6 +6,18 @@ const manageDB = require('../manageDB');
 const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
 
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
 /* GET api listing. */
 router.get('/', (req, res) => {
   res.send('api works');
@@ -56,7 +68,7 @@ router.get('/employee/:id', (req, res) => {
       for (var i = 0; i < data.rows.length; i++) {
         activities.push({
           "activity_name": data.rows[i].activity_name,
-          "ent_dt": data.rows[i].ent_dt,
+          "ent_dt": formatDate(data.rows[i].ent_dt),
           "point_value": data.rows[i].point_value
         });
       }

@@ -1,10 +1,25 @@
-<h1>
-  {{title}}
-</h1>
+<md-sidenav-container>
+  <md-sidenav #sidenav mode="side">
+    <md-toolbar >
+      Navigation
+      <md-toolbar-row class="navBar">
+        <span><a routerLink="/leaderboard" (click)="sidenav.toggle()">Scores</a></span>
+        <span class="example-spacer"></span>
+        <a routerLink="/leaderboard"><i class="material-icons">stars</i></a>
+      </md-toolbar-row>
+      <md-toolbar-row>
+        <span><a routerLink="/fullList" (click)="sidenav.toggle()">List</a></span>
+        <span class="example-spacer"></span>
+        <a routerLink="/fullList"><i class="material-icons">list</i></a>
+      </md-toolbar-row>
+    </md-toolbar>
+  </md-sidenav>
 
-<nav>
-  <a routerLink="/leaderboard">Leaderboard</a>
-  <a routerLink="/posts">Posts</a>
-  <a routerLink="/fullList">List</a>
-</nav>
-<router-outlet></router-outlet>
+  <md-toolbar color="primary">
+    <button class="app-icon-button" (click)="sidenav.toggle()">
+      <i class="material-icons app-toolbar-menu">menu</i>
+    </button> {{title}}
+
+  </md-toolbar>
+  <router-outlet></router-outlet>
+</md-sidenav-container>

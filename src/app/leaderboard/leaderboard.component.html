@@ -1,9 +1,10 @@
 <div class="container">
   <div>
-    <h2>{{!horizon ? 'Annual' : 'Quarterly'}} </h2>
-    <button (click)="toggleView()">Switch to {{horizon ? 'Annual' : 'Quarterly'}} View</button> We are currently in Q{{dateInformation.currentQuarter}}
-    and there are {{dateInformation.daysLeft}} days left until the next quarter.
+    <h2>{{!horizon ? 'Annual' : 'Quarterly'}} <i class="material-icons md-18">http</i></h2>
+    <button md-raised (click)="toggleView()">Switch to {{horizon ? 'Annual' : 'Quarterly'}} View</button> We are currently
+    in Q{{dateInformation.currentQuarter}} and there are {{dateInformation.daysLeft}} days left until the next quarter.
     <br>
+    <md-slide-toggle>Slide Toggle</md-slide-toggle>
     <div *ngIf="horizon; else annualBlock">
       <div class="row" *ngFor="let point of points; let i=index">
         <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">

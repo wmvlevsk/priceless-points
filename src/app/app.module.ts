@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import * as $ from 'jquery';
+import 'hammerjs';
 
 import { PostsService } from './posts/posts.service';
 import { LeaderboardService } from './leaderboard/leaderboard.service';
@@ -57,6 +60,11 @@ const ROUTES = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    MdButtonModule,
+    BrowserAnimationsModule,
+    MdSlideToggleModule,
+    MdToolbarModule,
+    MdSidenavModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
   exports: [
