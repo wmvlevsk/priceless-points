@@ -14,7 +14,7 @@ export class LeaderboardComponent implements OnInit {
 
   constructor(private leaderboardService: LeaderboardService) { }
 
-  horizon: boolean = true;
+  horizon: boolean = false;
 
   ngOnInit() {
     // Retrieve posts from the API
@@ -34,10 +34,13 @@ export class LeaderboardComponent implements OnInit {
     } else {
       nextq = new Date(today.getFullYear(), quarter * 3, 1);
     }
+    var nexty = new Date(new Date().getFullYear(), 11, 31);
     var millis1 = today.getTime();
     var millis2 = nextq.getTime();
+    var millis3 = nexty.getTime();
     return {
       daysLeft: Math.round((millis2 - millis1) / 1000 / 60 / 60 / 24),
+      daysLeftInYear: Math.round((millis3 - millis1) / 1000 / 60 / 60 / 24),
       currentQuarter: quarter
     };
   }
@@ -48,7 +51,7 @@ export class LeaderboardComponent implements OnInit {
 
   toggleView(){
     this.horizon = !this.horizon;
-    if(this.horizon){
+    if(!this.horizon){
       this.points = this.points.sort(function(a,b){return b.quarter-a.quarter});
     }
     else{

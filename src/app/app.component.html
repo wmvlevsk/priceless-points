@@ -1,19 +1,26 @@
 <md-sidenav-container>
-  <md-sidenav #sidenav mode="side">
-    <md-toolbar >
-      Navigation
-      <md-toolbar-row class="navBar">
-        <span><a routerLink="/leaderboard" (click)="sidenav.toggle()">Scores</a></span>
-        <span class="example-spacer"></span>
-        <a routerLink="/leaderboard"><i class="material-icons">stars</i></a>
-      </md-toolbar-row>
-      <md-toolbar-row>
-        <span><a routerLink="/fullList" (click)="sidenav.toggle()">List</a></span>
-        <span class="example-spacer"></span>
-        <a routerLink="/fullList"><i class="material-icons">list</i></a>
-      </md-toolbar-row>
-    </md-toolbar>
-  </md-sidenav>
+
+<md-sidenav #sidenav class="docs-component-viewer-sidenav mat-sidenav mat-sidenav-side mat-sidenav-opened" tabindex="-1">
+    <!----><nav>
+      <h3>Navigation</h3>
+      <ul>
+        <!----><li>
+          <a routerlinkactive="docs-component-viewer-sidenav-item-selected" routerLink="/leaderboard" (click)="sidenav.toggle()">
+            Leaderboard
+          </a>
+        </li><li>
+          <a routerlinkactive="docs-component-viewer-sidenav-item-selected" routerLink="/fullList" (click)="sidenav.toggle()">
+            Full List
+          </a>
+        </li><li>
+          <a routerlinkactive="docs-component-viewer-sidenav-item-selected" routerLink="/" (click)="sidenav.toggle()">
+            Admin
+          </a>
+        </li>
+      </ul>
+      </nav>
+  
+</md-sidenav>
 
   <md-toolbar color="primary">
     <button class="app-icon-button" (click)="sidenav.toggle()">

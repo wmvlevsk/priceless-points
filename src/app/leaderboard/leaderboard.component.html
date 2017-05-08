@@ -1,11 +1,16 @@
 <div class="container">
   <div>
-    <h2>{{!horizon ? 'Annual' : 'Quarterly'}} <i class="material-icons md-18">http</i></h2>
-    <button md-raised (click)="toggleView()">Switch to {{horizon ? 'Annual' : 'Quarterly'}} View</button> We are currently
-    in Q{{dateInformation.currentQuarter}} and there are {{dateInformation.daysLeft}} days left until the next quarter.
-    <br>
-    <md-slide-toggle>Slide Toggle</md-slide-toggle>
-    <div *ngIf="horizon; else annualBlock">
+    <h2>{{horizon ? 'Annual' : 'Quarterly'}} <i class="material-icons md-18">http</i></h2>
+    <div class="toggleView" color="primary">
+      By Quarter
+      <md-slide-toggle (click)="toggleView()"></md-slide-toggle>By Year
+    </div>
+
+    <div *ngIf="!horizon; else annualBlock">
+
+      We are currently in <b>Q{{dateInformation.currentQuarter}}</b> and there are <div class="emphasis">{{dateInformation.daysLeft}}</div> days left
+      until the next quarter.
+      <br>
       <div class="row" *ngFor="let point of points; let i=index">
         <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
           <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
@@ -24,6 +29,8 @@
       </table>
     </div>
     <ng-template #annualBlock>
+      There are <div class="emphasis">{{dateInformation.daysLeftInYear}}</div> days left until the next year.
+      <br>
       <div class="row" *ngFor="let point of points; let i=index">
         <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
           <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
