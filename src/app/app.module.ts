@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { FooterComponent } from './common/footer/footer.component';
 import * as $ from 'jquery';
 import 'hammerjs';
 
@@ -16,6 +15,7 @@ import { FullListComponent } from './full-list/full-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailService } from './user-detail/user-detail.service';
 import { FireworksComponent } from './fireworks/fireworks.component';
+import { AdminComponent } from './admin/admin.component';
 
 // Define the routes
 const ROUTES = [
@@ -39,17 +39,21 @@ const ROUTES = [
   {
     path: 'user/:id',
     component: UserDetailComponent
+  },
+    {
+    path: 'admin',
+    component: AdminComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     LeaderboardComponent,
     FullListComponent,
     UserDetailComponent,
-    FireworksComponent
+    FireworksComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

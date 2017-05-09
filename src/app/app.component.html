@@ -1,12 +1,13 @@
-<md-toolbar color="primary">
-  <div style="color: white">{{title}}</div>
-  <span class="example-spacer"></span>
-  <span>
+<div class="wrapper">
+  <md-toolbar color="primary">
+    <div style="color: white">{{title}}</div>
+    <span class="example-spacer"></span>
+    <span>
     <div><a routerLink="/leaderboard">Leaderboard</a>     |     
     <a routerLink="/fullList">Full List</a>     |
     <a routerLink="/admin">Admin</a>     
     </div>
   </span>
-</md-toolbar>
-<router-outlet></router-outlet>
-<footer></footer>
+  </md-toolbar>
+  <router-outlet></router-outlet>
+</div>

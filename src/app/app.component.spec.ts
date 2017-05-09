@@ -2,18 +2,14 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import {
-  RouterTestingModule
-} from '@angular/router/testing';
 
 describe('App: PricelessPoints', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
-        { provide: Router, useClass: MockRouter }
+        AppComponent
       ],
-      imports: [RouterTestingModule]
+      imports: []
     });
 });
 

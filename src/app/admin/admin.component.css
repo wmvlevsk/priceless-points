@@ -85,7 +85,7 @@ body {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
   text-align: left;
-  padding: 1.6rem;
+  padding: 0.5rem;
   vertical-align: top;
   border-top: 0;
   -webkit-transition: all 0.3s ease;
@@ -550,29 +550,4 @@ body {
   .table-responsive-vertical .table-hover.table-mc-deep-orange > tbody > tr > td:hover {
     background-color: #ffccbc;
   }
-}
-
-h1 {
-    text-align:center;
-    margin: 20px 20px 20px 20px;
-}
-
-.avatar {
-    /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
-    background-image: url('http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-medium-invader.sh-600x600.png');
-    
-    /* make a square container */
-    width: 300px;
-    height: 300px;
-    margin: 20px 20px 20px 20px;
-    display: inline-block;
-    
-    /* fill the container, preserving aspect ratio, and cropping to fit */
-    background-size: cover;
-
-    /* center the image vertically and horizontally */
-    background-position: center;
-
-    /* round the edges to a circle with border radius 1/2 container size */
-    border-radius: 50%;
 }

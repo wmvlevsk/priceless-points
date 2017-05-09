@@ -1,0 +1,18 @@
+<div style="padding:20px" *ngIf="data.length == 0">Upload an input csv: <input type="file" class="upload" (change)="_onChange($event.target.files)">
+</div>
+<div *ngIf="data.length > 0">
+  <h2 style="padding:20px">The uploaded file contained the following input: </h2>
+  <div class="table-responsive-vertical">
+    <table class="table table-hover table-striped table-mc-deep-purple">
+      <th *ngFor="let header of data[0]">{{header}}</th>
+      <ng-container *ngFor="let arrays of data; let i = index">
+        <tr>
+          <td *ngIf="i>0">{{arrays[0]}}</td>
+          <td *ngIf="i>0">{{arrays[1]}}</td>
+          <td *ngIf="i>0">{{arrays[2]}}</td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>
+<br>
