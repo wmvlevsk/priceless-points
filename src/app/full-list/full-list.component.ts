@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LeaderboardService } from '../leaderboard/leaderboard.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-full-list',
@@ -11,7 +12,8 @@ export class FullListComponent implements OnInit {
   points: any = [];
   lastTog: string;
   sortDesc: boolean = true;
-  constructor(private leaderboardService: LeaderboardService) { }
+  constructor(private leaderboardService: LeaderboardService,
+    private location: Location) { }
 
   ngOnInit() {
     // Retrieve posts from the API
@@ -109,5 +111,9 @@ export class FullListComponent implements OnInit {
       }
     }
     sortParam[param]();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

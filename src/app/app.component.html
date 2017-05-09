@@ -1,26 +1,30 @@
 <md-sidenav-container>
 
-<md-sidenav #sidenav class="docs-component-viewer-sidenav mat-sidenav mat-sidenav-side mat-sidenav-opened" tabindex="-1">
-    <!----><nav>
+  <md-sidenav #sidenav class="docs-component-viewer-sidenav mat-sidenav mat-sidenav-side mat-sidenav-opened" tabindex="-1">
+    <!---->
+    <nav>
       <h3>Navigation</h3>
       <ul>
-        <!----><li>
+        <!---->
+        <li>
           <a routerlinkactive="docs-component-viewer-sidenav-item-selected" routerLink="/leaderboard" (click)="sidenav.toggle()">
             Leaderboard
           </a>
-        </li><li>
+        </li>
+        <li>
           <a routerlinkactive="docs-component-viewer-sidenav-item-selected" routerLink="/fullList" (click)="sidenav.toggle()">
             Full List
           </a>
-        </li><li>
+        </li>
+        <li>
           <a routerlinkactive="docs-component-viewer-sidenav-item-selected" routerLink="/" (click)="sidenav.toggle()">
             Admin
           </a>
         </li>
       </ul>
-      </nav>
-  
-</md-sidenav>
+    </nav>
+
+  </md-sidenav>
 
   <md-toolbar color="primary">
     <button class="app-icon-button" (click)="sidenav.toggle()">
@@ -29,4 +33,5 @@
 
   </md-toolbar>
   <router-outlet></router-outlet>
+  <footer></footer>
 </md-sidenav-container>

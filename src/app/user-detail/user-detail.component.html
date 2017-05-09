@@ -1,22 +1,26 @@
-<div *ngIf="employeeInfo">
+<div *ngIf="employeeInfo" style="width:100%">
   <div *ngIf="employeeInfo.activities; else emptyInfo">
-    <p>The employee selected is: {{employeeInfo.first_name}} {{employeeInfo.last_name}}</p>
-    <table>
-      <tr>
-        <th>Event</th>
-        <th>Date</th>
-        <th>Points</th>
-      </tr>
-      <tr *ngFor="let activity of employeeInfo.activities">
-        <td>{{activity.activity_name}}</td>
-        <td>{{activity.ent_dt}}</td>
-        <td>{{activity.point_value}}</td>
-      </tr>
-    </table>
+    <h1>{{employeeInfo.first_name}} {{employeeInfo.last_name}}</h1>
+    <md-card>
+      <div class="table-responsive-vertical shadow-z-1">
+        <table class="table table-hover table-striped table-mc-deep-purple">
+          <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Points</th>
+          </tr>
+          <tr *ngFor="let activity of employeeInfo.activities">
+            <td>{{activity.activity_name}}</td>
+            <td>{{activity.ent_dt}}</td>
+            <td>{{activity.point_value}}</td>
+          </tr>
+        </table>
+      </div>
+    </md-card>
   </div>
   <ng-template #emptyInfo>
-    <p>The employee selected is: {{employeeInfo.first_name}} {{employeeInfo.last_name}}</p>
-    <p>Unfortunately, they don't currently have any points.</p>
+    <h1>{{employeeInfo.first_name}} {{employeeInfo.last_name}}</h1>
+    <p>Unfortunately, no points are available for this user.</p>
   </ng-template>
 </div>
-<button (click)="goBack()">Back</button>
+<button md-raised-button (click)="goBack()">Back</button>

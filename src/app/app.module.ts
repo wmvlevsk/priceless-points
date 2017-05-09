@@ -6,11 +6,10 @@ import { RouterModule } from '@angular/router';
 import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { PostsComponent } from './posts/posts.component';
+import { FooterComponent } from './common/footer/footer.component';
 import * as $ from 'jquery';
 import 'hammerjs';
 
-import { PostsService } from './posts/posts.service';
 import { LeaderboardService } from './leaderboard/leaderboard.service';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { FullListComponent } from './full-list/full-list.component';
@@ -24,10 +23,6 @@ const ROUTES = [
     path: '',
     redirectTo: 'leaderboard',
     pathMatch: 'full'
-  },
-  {
-    path: 'posts',
-    component: PostsComponent
   },
   {
     path: 'leaderboard',
@@ -50,7 +45,7 @@ const ROUTES = [
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent,
+    FooterComponent,
     LeaderboardComponent,
     FullListComponent,
     UserDetailComponent,
@@ -71,7 +66,6 @@ const ROUTES = [
     RouterModule
   ],
   providers: [
-    PostsService,
     LeaderboardService,
     UserDetailService
   ],

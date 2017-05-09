@@ -25,7 +25,6 @@ export class UserDetailComponent implements OnInit {
       .switchMap((params: Params) => this.userDetailService.getEmployeeInfo(+params['id']))
       .subscribe(info => {
         this.employeeInfo = info;
-        console.log(this.employeeInfo);
       });
   }
 
