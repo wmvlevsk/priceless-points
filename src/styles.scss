@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  font-family: Roboto;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  margin: 0 auto;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  margin: 0 auto;
+  box-sizing: border-box;
+  * {
+    box-sizing: inherit;
+    &:before, &:after {
+      box-sizing: inherit;
+    }
+  }
+}
+
+.footer {
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}

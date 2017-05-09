@@ -4,7 +4,7 @@ import { LeaderboardService } from './leaderboard.service';
 @Component({
   selector: 'leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.css']
+  styleUrls: ['./leaderboard.component.scss']
 })
 export class LeaderboardComponent implements OnInit {
   // instantiate posts to an empty array
