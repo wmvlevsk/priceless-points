@@ -8,8 +8,8 @@
 
     <div *ngIf="!horizon; else annualBlock">
 
-      We are currently in <b>Q{{dateInformation.currentQuarter}}</b> and there are <div class="emphasis">{{dateInformation.daysLeft}}</div> days left
-      until the next quarter.
+      We are currently in <b>Q{{dateInformation.currentQuarter}}</b> and there are
+      <div class="emphasis">{{dateInformation.daysLeft}}</div> days left until the next quarter.
       <br>
       <div class="row" *ngFor="let point of points; let i=index">
         <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
@@ -29,7 +29,8 @@
       </table>
     </div>
     <ng-template #annualBlock>
-      There are <div class="emphasis">{{dateInformation.daysLeftInYear}}</div> days left until the next year.
+      There are
+      <div class="emphasis">{{dateInformation.daysLeftInYear}}</div> days left until the next year.
       <br>
       <div class="row" *ngFor="let point of points; let i=index">
         <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
