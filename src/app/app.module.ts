@@ -16,6 +16,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailService } from './user-detail/user-detail.service';
 import { FireworksComponent } from './fireworks/fireworks.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminService } from './admin/admin.service';
 
 // Define the routes
 const ROUTES = [
@@ -71,7 +72,8 @@ const ROUTES = [
   ],
   providers: [
     LeaderboardService,
-    UserDetailService
+    UserDetailService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

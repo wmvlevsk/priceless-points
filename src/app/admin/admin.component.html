@@ -2,6 +2,7 @@
 </div>
 <div *ngIf="data.length > 0">
   <h2 style="padding:20px">The uploaded file contained the following input: </h2>
+  <button md-button-raised (click)="bulkInsertEmployees()">Insert into database</button>
   <div class="table-responsive-vertical">
     <table class="table table-hover table-striped table-mc-deep-purple">
       <th *ngFor="let header of data[0]">{{header}}</th>

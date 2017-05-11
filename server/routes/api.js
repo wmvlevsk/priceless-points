@@ -1,22 +1,29 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router();
 const manageDB = require('../manageDB');
+const Promise = require('promise');
 
 // declare axios for making http requests
 const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
 
 function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
 
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
 
-    return [year, month, day].join('-');
+  return [year, month, day].join('-');
 }
+
+router.use(bodyParser.json());       // to support JSON-encoded bodies
+router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
 
 /* GET api listing. */
 router.get('/', (req, res) => {
@@ -91,7 +98,25 @@ router.get('/employee/:id', (req, res) => {
   });
 });
 
-
+/**
+ * Batch insert or update of employees
+ * @param {[[]]} /:req.body.records
+ */
+router.post('/addEmployees', (req, res) => {
+  var newEmployees = req.body.records;
+  function loadUsers() {
+    return new Promise(function (resolve, reject) {
+      newEmployees.forEach(function (obj) {
+        manageDB.executeQueryWithParams('INSERT INTO EMPLOYEE (EMPLOYEE_ID, LAST_NAME, FIRST_NAME) VALUES ? ON DUPLICATE KEY UPDATE FIRST_NAME = ?, LAST_NAME = ?', [[obj], obj[2], obj[1]], function (err, data) {
+        });
+      })
+      resolve();
+    });
+  }
+  loadUsers().then(function (data) {
+    res.status(200).json("You did it");
+  })
+});
 /**
  * Points to be shown in the List view
  */

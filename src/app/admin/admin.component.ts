@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from './admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
 
   reader: FileReader = new FileReader();
-  constructor() { }
+  constructor( private AdminService: AdminService) { }
   data: any = [];
 
   ngOnInit() {
@@ -38,11 +39,17 @@ export class AdminComponent implements OnInit {
             }
         }
         this.data = lines;
+        console.log(this.data);
       }
 
       reader.readAsText(file);
     }
   }
 
-
+  bulkInsertEmployees(){
+    this.data.shift();
+    let body = this.data;
+    this.data = [];
+    this.AdminService.loadEmployees(body);
+  }
 }
