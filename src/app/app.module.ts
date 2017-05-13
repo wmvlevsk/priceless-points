@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule } from '@angular/material';
+import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule, MdMenuModule, MdSnackBarModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import * as $ from 'jquery';
@@ -65,6 +65,8 @@ const ROUTES = [
     MdSlideToggleModule,
     MdToolbarModule,
     MdSidenavModule,
+    MdMenuModule,
+    MdSnackBarModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
   exports: [
@@ -73,7 +75,7 @@ const ROUTES = [
   providers: [
     LeaderboardService,
     UserDetailService,
-    AdminService
+    AdminService,
   ],
   bootstrap: [AppComponent]
 })

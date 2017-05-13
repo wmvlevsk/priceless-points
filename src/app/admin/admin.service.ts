@@ -17,6 +17,6 @@ export class AdminService {
         'Content-Type': 'application/json'
       })
     })
-      .map(res => res.json()).subscribe();
+      .map(res => res.json());
   }
 }

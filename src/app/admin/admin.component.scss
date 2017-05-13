@@ -43,6 +43,21 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.instructions {
+  padding:20px;
+}
+
+.table-instructions{
+  table, th, td {
+   border: 1px solid black;
+   }
+}
+
+.emphasis {
+     font-weight: bold;
+     font-size: 20px;
+   }
+
 #demo {
   margin: 20px auto;
   max-width: 960px;

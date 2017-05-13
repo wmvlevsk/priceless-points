@@ -107,15 +107,22 @@ router.post('/addEmployees', (req, res) => {
   function loadUsers() {
     return new Promise(function (resolve, reject) {
       newEmployees.forEach(function (obj) {
+        if(obj.length > 3){
+          throw('{ "status": "Error: bad input!"}');
+        }
         manageDB.executeQueryWithParams('INSERT INTO EMPLOYEE (EMPLOYEE_ID, LAST_NAME, FIRST_NAME) VALUES ? ON DUPLICATE KEY UPDATE FIRST_NAME = ?, LAST_NAME = ?', [[obj], obj[2], obj[1]], function (err, data) {
         });
       })
       resolve();
     });
   }
+  
   loadUsers().then(function (data) {
-    res.status(200).json("You did it");
+    res.status(200).send(JSON.parse('{ "status": "Success!"}'));
   })
+  .catch(error => {
+    res.status(500).send(JSON.parse(error));
+  });
 });
 /**
  * Points to be shown in the List view
