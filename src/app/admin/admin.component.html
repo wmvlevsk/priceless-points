@@ -2,7 +2,7 @@
 
 <md-menu #appMenu="mdMenu">
   <button md-menu-item (click)="setFilter('Employees')"> Employee List </button>
-  <button md-menu-item (click)="setFilter('Applauds/Bravos')"> Applaud/Bravo </button>
+  <button md-menu-item (click)="setFilter('Applauds')"> Applaud/Bravo </button>
 </md-menu>
 
 <div *ngIf="uploadFilter">
@@ -23,6 +23,44 @@
             </tr>
             <tr>
               <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+          </table>
+        </div>
+
+        Upload <span class="emphasis">csv</span>: <input type="file" class="upload" (change)="_onChange($event.target.files)">
+      </div>
+      <div *ngIf="data.length > 0">
+        <h5>Is the following input correct? <button md-mini-fab color="primary" (click)="bulkInsertEmployees()"><i class="material-icons md-18">check</i></button>
+          <button md-mini-fab color="warn" (click)="cancel()"><i class="material-icons md-18">cancel</i></button></h5>
+
+        <div class="table-responsive-vertical">
+          <table class="table table-hover table-striped table-mc-deep-purple table-instructions">
+            <th *ngFor="let header of data[0]">{{header}}</th>
+            <ng-container *ngFor="let arrays of data; let i = index">
+              <tr>
+                <td *ngIf="i>0">{{arrays[0]}}</td>
+                <td *ngIf="i>0">{{arrays[1]}}</td>
+                <td *ngIf="i>0">{{arrays[2]}}</td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="uploadFilter=='Applauds'">
+      <div *ngIf="data.length == 0">
+        An example of the input file is as follows:
+        <div class="table-responsive-vertical">
+          <table class="table-instructions table table-hover table-striped table-mc-deep-purple">
+            <th>Sender ID</th>
+            <th>Date</th>
+            <tr>
+              <td>000001</td>
+              <td>4/29/2016</td>
+            </tr>
+            <tr>
               <td>...</td>
               <td>...</td>
             </tr>

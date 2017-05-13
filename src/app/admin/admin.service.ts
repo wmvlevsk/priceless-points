@@ -8,11 +8,17 @@ export class AdminService {
   // Get all posts from the API
   url = 'http://localhost:3000';
 
-  loadEmployees(body) {
-    let payload = {};
-    payload['records'] = body;
-
+  loadEmployees(payload) {
     return this.http.post(this.url + '/api/addEmployees', JSON.stringify(payload), {
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+      .map(res => res.json());
+  }
+
+  loadApplauds(payload) {
+    return this.http.post(this.url + '/api/addApplauds', JSON.stringify(payload), {
       headers: new Headers({
         'Content-Type': 'application/json'
       })

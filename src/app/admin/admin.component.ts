@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
   data: any = [];
   uploadFilter: string;
   result: string;
+  uploadFileName: string;
 
   ngOnInit() {
   }
@@ -30,7 +31,7 @@ export class AdminComponent implements OnInit {
     let reader: FileReader = new FileReader();
     if (files && files.length > 0) {
       let file: File = files.item(0);
-
+      this.uploadFileName = file.name;
       reader.onload = (e) => {
         let csv: string = reader.result;
         //From here you can either use a csv parse library, or your own
@@ -50,7 +51,6 @@ export class AdminComponent implements OnInit {
           }
         }
         this.data = lines;
-        console.log(JSON.stringify(this.data));
       }
 
       reader.readAsText(file);
@@ -59,8 +59,12 @@ export class AdminComponent implements OnInit {
 
   bulkInsertEmployees() {
     this.data.shift();
-    let body = this.data;
+    let body = {
+      "records": this.data,
+      "uploadFileName": this.uploadFileName
+    };
     this.data = [];
+    this.uploadFileName = null;
     this.AdminService.loadEmployees(body).subscribe(result => {
       this.result = result.status;
       console.log(this.result);
@@ -68,7 +72,7 @@ export class AdminComponent implements OnInit {
     },
       err => {
         this.result = JSON.parse(err._body).status;
-        this.openSnackBar(this.result,10000);
+        this.openSnackBar(this.result, 10000);
       });
   }
 

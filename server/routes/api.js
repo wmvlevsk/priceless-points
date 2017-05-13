@@ -3,22 +3,11 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const manageDB = require('../manageDB');
 const Promise = require('promise');
+const moment = require('moment');
 
 // declare axios for making http requests
 const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
-
-function formatDate(date) {
-  var d = new Date(date),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
-    year = d.getFullYear();
-
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [year, month, day].join('-');
-}
 
 router.use(bodyParser.json());       // to support JSON-encoded bodies
 router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -75,7 +64,7 @@ router.get('/employee/:id', (req, res) => {
       for (var i = 0; i < data.rows.length; i++) {
         activities.push({
           "activity_name": data.rows[i].activity_name,
-          "ent_dt": formatDate(data.rows[i].ent_dt),
+          "ent_dt": moment(data.rows[i].ent_dt).format('YYYY-MM-DD'),
           "point_value": data.rows[i].point_value
         });
       }
@@ -104,26 +93,33 @@ router.get('/employee/:id', (req, res) => {
  */
 router.post('/addEmployees', (req, res) => {
   var newEmployees = req.body.records;
+  var auditName = req.body.uploadFileName;
   function loadUsers() {
     return new Promise(function (resolve, reject) {
       newEmployees.forEach(function (obj) {
-        if(obj.length > 3){
-          throw('{ "status": "Error: bad input!"}');
+        console.log(obj);
+        if (obj.length > 3) {
+          throw ('{ "status": "Error: bad input!"}');
         }
         manageDB.executeQueryWithParams('INSERT INTO EMPLOYEE (EMPLOYEE_ID, LAST_NAME, FIRST_NAME) VALUES ? ON DUPLICATE KEY UPDATE FIRST_NAME = ?, LAST_NAME = ?', [[obj], obj[2], obj[1]], function (err, data) {
         });
       })
+      //Audit table
+      manageDB.executeQueryWithParams('INSERT INTO LOAD_AUD (FILE_NAME) VALUES (?)', [auditName], function (err, data) {
+      });
       resolve();
     });
   }
-  
+
   loadUsers().then(function (data) {
     res.status(200).send(JSON.parse('{ "status": "Success!"}'));
   })
-  .catch(error => {
-    res.status(500).send(JSON.parse(error));
-  });
+    .catch(error => {
+      res.status(500).send(JSON.parse(error));
+    });
 });
+
+
 /**
  * Points to be shown in the List view
  */
@@ -148,6 +144,59 @@ router.get('/points', (req, res) => {
       }
     }
     res.status(200).json(data.rows);
+  });
+});
+
+
+/**
+ * Batch insert applauds' points
+ * @param {[[]]} /:req.body.records
+ */
+router.post('/addApplauds', (req, res) => {
+  var applauds = req.body.records;
+  var auditName = req.body.uploadFileName;
+  var activityIDSend = 0;
+  var activityIDReceive = 0;
+
+  var pSend = new Promise(function (resolve, reject) {
+    manageDB.executeQuery('SELECT ID FROM ACTIVITY WHERE ACTIVITY_NAME LIKE "APPLAUD - SENT"', function (err, data) {
+      activityIDSend = data.rows[0].ID;
+      resolve();
+    })
+  });
+
+  var pReceive = new Promise(function (resolve, reject) {
+    manageDB.executeQuery('SELECT ID FROM ACTIVITY WHERE ACTIVITY_NAME LIKE "APPLAUD - RECEIVED"', function (err, data) {
+      activityIDReceive = data.rows[0].ID;
+      resolve();
+    });
+  });
+
+  function loadApplauds(actIDSend, actIDRec) {
+    return new Promise(function (resolve, reject) {
+      applauds.forEach(function (obj) {
+
+        console.log(obj);
+        if (obj.length > 2) {
+          throw ('{ "status": "Error: bad input!"}');
+        }
+        manageDB.executeQueryWithParams('INSERT INTO POINT_TALLY (EMPLOYEE_ID, ACTIVITY_ID, ENT_DT, LOAD_FILE) VALUES (?,?,?,?)', [obj[0], actIDSend, new Date(obj[1]), auditName], function (err, data) {
+        });
+      })
+      //Audit table
+      manageDB.executeQueryWithParams('INSERT INTO LOAD_AUD (FILE_NAME) VALUES (?)', [auditName], function (err, data) {
+      });
+      resolve();
+    });
+  }
+
+  Promise.all([pSend, pReceive]).then(data => {
+    loadApplauds(activityIDSend, activityIDReceive).then(function (data) {
+      res.status(200).send(JSON.parse('{ "status": "Success!"}'));
+    })
+      .catch(error => {
+        res.status(500).send(JSON.parse(error));
+      });;
   });
 });
 
