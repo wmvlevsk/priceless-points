@@ -36,7 +36,7 @@
     "normalize.css": "^7.0.0",
     "rxjs": "^5.3.1",
     "ts-helpers": "^1.1.1",
-    "typescript": "2.1.6",
+    "typescript": "2.2.2",
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
