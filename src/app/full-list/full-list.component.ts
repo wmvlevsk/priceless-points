@@ -19,6 +19,7 @@ export class FullListComponent implements OnInit {
     // Retrieve posts from the API
     this.leaderboardService.getFullList().subscribe(points => {
       this.points = points;
+      this.sortParam('FIRST');
     });
   }
 
@@ -32,8 +33,8 @@ export class FullListComponent implements OnInit {
           _this.sortDesc = true;
         }
         _this.points = _this.points.sort(function (a, b) {
-          if (_this.sortDesc) { return b.FIRST_NAME.localeCompare(a.FIRST_NAME) }
-          else { return a.FIRST_NAME.localeCompare(b.FIRST_NAME) }
+          if (_this.sortDesc) { return a.FIRST_NAME.localeCompare(b.FIRST_NAME) }
+          else { return b.FIRST_NAME.localeCompare(a.FIRST_NAME) }
         });
         _this.lastTog = 'FIRST';
       },
@@ -44,8 +45,8 @@ export class FullListComponent implements OnInit {
           _this.sortDesc = true;
         }
         _this.points = _this.points.sort(function (a, b) {
-          if (_this.sortDesc) { return b.LAST_NAME.localeCompare(a.LAST_NAME) }
-          else { return a.LAST_NAME.localeCompare(b.LAST_NAME) }
+          if (_this.sortDesc) { return a.LAST_NAME.localeCompare(b.LAST_NAME) }
+          else { return b.LAST_NAME.localeCompare(a.LAST_NAME) }
         });
         _this.lastTog = 'LAST';
       },
