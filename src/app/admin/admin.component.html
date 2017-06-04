@@ -40,7 +40,10 @@
 
         <div class="table-responsive-vertical">
           <table class="table table-hover table-striped table-mc-deep-purple table-instructions">
-            <th *ngFor="let header of data[0]">{{header}}</th>
+            <th>Employee ID</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Email</th>
             <ng-container *ngFor="let arrays of data; let i = index">
               <tr>
                 <td *ngIf="i>0">{{arrays[0]}}</td>
@@ -58,13 +61,16 @@
         An example of the input file is as follows:
         <div class="table-responsive-vertical">
           <table class="table-instructions table table-hover table-striped table-mc-deep-purple">
-            <th>Sender ID</th>
             <th>Date</th>
+            <th>Sender Email</th>
+            <th>Receiver Email</th>
             <tr>
-              <td>000001</td>
               <td>4/29/2016</td>
+              <td>john.deaux@email.com</td>
+              <td>jane.deaux@email.com</td>
             </tr>
             <tr>
+              <td>...</td>
               <td>...</td>
               <td>...</td>
             </tr>
@@ -74,17 +80,19 @@
         Upload <span class="emphasis">csv</span>: <input type="file" class="upload" (change)="_onChange($event.target.files)">
       </div>
       <div *ngIf="data.length > 0">
-        <h5>Is the following input correct? <button md-mini-fab color="primary" (click)="bulkInsertEmployees()"><i class="material-icons md-18">check</i></button>
+        <h5>Is the following input correct? <button md-mini-fab color="primary" (click)="bulkInsertApplauds()"><i class="material-icons md-18">check</i></button>
           <button md-mini-fab color="warn" (click)="cancel()"><i class="material-icons md-18">cancel</i></button></h5>
 
         <div class="table-responsive-vertical">
           <table class="table table-hover table-striped table-mc-deep-purple table-instructions">
-            <th *ngFor="let header of data[0]">{{header}}</th>
+            <th>Date</th>
+            <th>Sender Email</th>
+            <th>Receiver Email</th>
             <ng-container *ngFor="let arrays of data; let i = index">
               <tr>
                 <td *ngIf="i>0">{{arrays[0]}}</td>
-                <td *ngIf="i>0">{{arrays[1]}}</td>
-                <td *ngIf="i>0">{{arrays[2]}}</td>
+                <td *ngIf="i>0">{{arrays[3]}}</td>
+                <td *ngIf="i>0">{{arrays[12]}}</td>
               </tr>
             </ng-container>
           </table>

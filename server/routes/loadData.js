@@ -22,34 +22,52 @@ module.exports = {
 
         function loadApplauds(actIDSend, actIDRec) {
             return new Promise(function (resolve, reject) {
-                applauds.forEach(function (obj) {
-
-                    console.log(obj);
-                    if (obj.length > 2) {
-                        throw ('{ "status": "Error: bad input!"}');
-                    }
-                    manageDB.executeQueryWithParams('INSERT INTO POINT_TALLY (EMPLOYEE_ID, ACTIVITY_ID, ENT_DT, LOAD_FILE) VALUES (?,?,?,?)', [obj[0], actIDSend, new Date(obj[1]), auditName], function (err, data) {
+                employeeInfo().then(employeeTable => {
+                    applauds.forEach(function (obj) {
+                        obj = [obj[0], obj[3], obj[12]];
+                        // If sender is eligible (as in, in the system)
+                        if (employeeTable[obj[1]]) {
+                            manageDB.executeQueryWithParams('INSERT INTO POINT_TALLY (EMPLOYEE_ID, ACTIVITY_ID, ENT_DT, LOAD_FILE) VALUES (?,?,?,?)', [employeeTable[obj[1]][0], actIDSend, new Date(obj[0]), auditName], function (err, data) {
+                            });
+                        };
+                        // If receiver is eligible (as in, in the system)
+                        if (employeeTable[obj[2]]) {
+                            manageDB.executeQueryWithParams('INSERT INTO POINT_TALLY (EMPLOYEE_ID, ACTIVITY_ID, ENT_DT, LOAD_FILE) VALUES (?,?,?,?)', [employeeTable[obj[2]][0], actIDRec, new Date(obj[0]), auditName], function (err, data) {
+                            });
+                        };
+                    })
+                    //Audit table
+                    manageDB.executeQueryWithParams('INSERT INTO LOAD_AUD (FILE_NAME) VALUES (?)', [auditName], function (err, data) {
                     });
-                })
-                //Audit table
-                manageDB.executeQueryWithParams('INSERT INTO LOAD_AUD (FILE_NAME) VALUES (?)', [auditName], function (err, data) {
+                    resolve();
                 });
-                resolve();
-            });
+            })
         }
+
+        function employeeInfo() {
+            return new Promise(function (resolve, reject) {
+                manageDB.executeQuery('SELECT E.EMPLOYEE_ID, E.EMAIL FROM EMPLOYEE E', function (err, data) {
+                    var employeeTable = {};
+                    data.rows.forEach(function (obj) {
+                        if (!employeeTable[obj.EMAIL]) {
+                            employeeTable[obj.EMAIL] = [obj.EMPLOYEE_ID, obj.EMAIL];
+                        }
+                    });
+                    resolve(employeeTable);
+                })
+            })
+        };
 
         Promise.all([pSend, pReceive]).then(data => {
             loadApplauds(activityIDSend, activityIDReceive).then(function (data) {
-                deferred.resolve(data);
+                deferred.resolve();
             });
-            return deferred.promise;
-        })
+        });
+        return deferred.promise;
     },
 
     addEmployees: function (employees, auditName) {
         var deferred = Q.defer();
-        console.log("deferred at the start: ");
-        console.log(deferred);
         function loadUsers() {
             return new Promise(function (resolve, reject) {
                 employees.forEach(function (obj) {

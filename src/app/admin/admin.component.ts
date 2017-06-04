@@ -36,12 +36,13 @@ export class AdminComponent implements OnInit {
         let csv: string = reader.result;
         //From here you can either use a csv parse library, or your own
         let allTextLines = csv.split(/\r\n|\n/);
-        let headers = allTextLines[0].split(',');
+        let regex = /("[^"]+"|[^,]+)/g;
+        let headers = allTextLines[0].match(regex);
         let lines = [];
 
         for (let i = 0; i < allTextLines.length; i++) {
           // split content based on comma
-          let data = allTextLines[i].split(',');
+          let data = allTextLines[i].match(regex);
           if (data.length == headers.length) {
             let tarr = [];
             for (let j = 0; j < headers.length; j++) {
@@ -67,7 +68,24 @@ export class AdminComponent implements OnInit {
     this.uploadFileName = null;
     this.AdminService.loadEmployees(body).subscribe(result => {
       this.result = result.status;
-      console.log(this.result);
+      this.openSnackBar(this.result, 2000);
+    },
+      err => {
+        this.result = JSON.parse(err._body).status;
+        this.openSnackBar(this.result, 10000);
+      });
+  }
+
+    bulkInsertApplauds() {
+    this.data.shift();
+    let body = {
+      "records": this.data,
+      "uploadFileName": this.uploadFileName
+    };
+    this.data = [];
+    this.uploadFileName = null;
+    this.AdminService.loadApplauds(body).subscribe(result => {
+      this.result = result.status;
       this.openSnackBar(this.result, 2000);
     },
       err => {
@@ -82,5 +100,6 @@ export class AdminComponent implements OnInit {
 
   setFilter(menuChoice) {
     this.uploadFilter = menuChoice;
+    this.cancel();
   }
 }

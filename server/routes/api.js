@@ -127,9 +127,10 @@ router.get('/points', (req, res) => {
  * @param {[[]]} /:req.body.records
  */
 router.post('/addApplauds', (req, res) => {
-  loadDataModule.addApplauds(req.body.records, req.body.uploadFileName).then(obj => function () {
-    res.status(200).send(JSON.parse('{ "status": "Success!"}'));
-
+  loadDataModule.addApplauds(req.body.records, req.body.uploadFileName).then(obj => {
+    pointCalculationModule.pointCalculate().then(obj => {
+      res.status(200).send(JSON.parse('{ "status": "Success!"}'));
+    });
   })
     .catch(error => {
       res.status(500).send(JSON.parse(error));
