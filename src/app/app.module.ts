@@ -17,6 +17,11 @@ import { UserDetailService } from './user-detail/user-detail.service';
 import { FireworksComponent } from './fireworks/fireworks.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/admin.service';
+import { AuthGuard } from './auth-guard.service';
+
+import { LoginRoutingModule }      from './login/login-routing.module';
+import { LoginComponent }          from './login/login.component';
+
 
 // Define the routes
 const ROUTES = [
@@ -41,9 +46,14 @@ const ROUTES = [
     path: 'user/:id',
     component: UserDetailComponent
   },
-    {
+  {
     path: 'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
@@ -54,7 +64,8 @@ const ROUTES = [
     FullListComponent,
     UserDetailComponent,
     FireworksComponent,
-    AdminComponent
+    AdminComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +78,7 @@ const ROUTES = [
     MdSidenavModule,
     MdMenuModule,
     MdSnackBarModule,
+    LoginRoutingModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],
   exports: [
