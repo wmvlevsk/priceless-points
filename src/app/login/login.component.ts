@@ -7,32 +7,30 @@ import { MdSnackBar } from '@angular/material';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  message: string;
-  constructor(private authService: AuthService, public router: Router, public snackBar: MdSnackBar) {
-    this.setMessage();
-  }
+  payload = {};
+  constructor(private authService: AuthService, public router: Router, public snackBar: MdSnackBar) { }
 
-  setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
   login() {
-    this.message = 'Trying to log in ...';
-    this.authService.login().subscribe(() => {
-      this.setMessage();
-      if (this.authService.isLoggedIn) {
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
-        // Redirect the user
-        this.router.navigate([redirect]);
-      }
-      this.openSnackBar("Logged in Successfully!")
-      
-    });
+    if (this.payload['username'] != undefined && this.payload['password'] != undefined) {
+      this.authService.login(this.payload).subscribe(obj => {
+        if (obj['status'] == 'Error!') {
+          this.openSnackBar("Incorrect Login");
+        }
+        else {
+          this.authService.isLoggedIn = true;
+          // Get the redirect URL from our auth service
+          // If no redirect has been set, use the default
+          let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
+          // Redirect the user
+          this.router.navigate([redirect]);
+          this.openSnackBar("Logged in Successfully!");
+        }
+      });
+    }
+
   }
   logout() {
     this.authService.logout();
-    this.setMessage();
   }
 
   openSnackBar(message: string) {

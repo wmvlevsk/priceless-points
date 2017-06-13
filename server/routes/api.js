@@ -5,6 +5,7 @@ const manageDB = require('../manageDB');
 const eventsModule = require('./events');
 const pointCalculationModule = require('./calculation');
 const loadDataModule = require('./loadData');
+const authenticateModule = require('./authenticate');
 const Promise = require('promise');
 const moment = require('moment');
 
@@ -21,6 +22,21 @@ router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 router.get('/', (req, res) => {
   res.send('api works');
 });
+
+
+/**
+ * Authenticate against db, rudimentary, do not reference.
+ * @param {[[]]} 
+ */
+router.post('/authenticate', (req, res) => {
+  authenticateModule.auth(req.body.username, req.body.password).then(obj => {
+    res.status(200).send(JSON.parse(obj));
+  })
+    .catch(error => {
+      res.status(500).send(JSON.parse(error));
+    });;
+});
+
 
 /**
  * Employee information from text
