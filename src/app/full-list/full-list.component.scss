@@ -541,3 +541,31 @@
     background-color: #ffccbc;
   }
 }
+
+.scrollButton {
+  position: fixed;
+  z-index: 99;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+
+  &.top {
+    display: none; 
+    background-color: #3f51b5;
+    bottom: 20px;
+    right: 170px;
+    padding: 10px 10px 5px 10px;
+  }
+
+  &.export {
+    padding: 15px;
+    background-color: purple;
+    bottom: 20px;
+    right: 30px;
+  }
+  &:hover {
+    background-color: #6f51b5;
+  }
+}

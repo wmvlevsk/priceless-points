@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { LeaderboardService } from '../leaderboard/leaderboard.service';
 import { Location } from '@angular/common';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-full-list',
@@ -116,5 +117,72 @@ export class FullListComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  // When the user scrolls down 20px from the top of the document, show the button
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    this.scrollFunction();
+  }
+  scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      Array.from(document.getElementsByClassName("top")).forEach(function (item) {
+        $(item).css("display", "block");
+      })
+    } else {
+      Array.from(document.getElementsByClassName("top")).forEach(function (item) {
+        $(item).css("display", "none");
+      })
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  exportToCSV() {
+    var data, filename, link;
+    var csv = this.convertArrayOfObjectsToCSV(this.points);
+    if (csv == null) return;
+
+    filename = 'pulsePointsLeaderboard_' + new Date().toJSON().replace(/-/g,'/') + '.csv';
+
+    if (!csv.match(/^data:text\/csv/i)) {
+      csv = 'data:text/csv;charset=utf-8,' + csv;
+    }
+    data = encodeURI(csv);
+
+    link = document.createElement('a');
+    link.setAttribute('href', data);
+    link.setAttribute('download', filename);
+    link.click();
+  }
+
+  convertArrayOfObjectsToCSV(args) {
+    var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+    columnDelimiter = ',';
+    lineDelimiter = "\n";
+
+    keys = Object.keys(args[0]);
+    keys.splice(keys.indexOf("quarter"), 1);
+    keys.splice(keys.indexOf("MOD_DT"), 1);
+
+    result = '';
+    result += keys.join(columnDelimiter);
+    result += lineDelimiter;
+    args.forEach(function (item) {
+      ctr = 0;
+      keys.forEach(function (key) {
+        if (ctr > 0) result += columnDelimiter;
+
+        result += item[key];
+        ctr++;
+      });
+      result += lineDelimiter;
+    });
+
+    return result;
   }
 }

@@ -1,37 +1,30 @@
 <div class="table-responsive-vertical">
+  <button (click)="exportToCSV()" class="scrollButton export">Export to CSV</button>
+  <button (click)="topFunction()" class="scrollButton top"><i _ngcontent-c2="" class="material-icons" style=" font-size: 32px">arrow_upward</i></button>
   <table class="table table-hover table-striped table-mc-deep-purple">
     <tr>
       <th (click)="sortParam('FIRST')">
         <i *ngIf="lastTog==='FIRST' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='FIRST' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-          First Name</th>
+        <i *ngIf="lastTog==='FIRST' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i>        First Name</th>
       <th (click)="sortParam('LAST')">
         <i *ngIf="lastTog==='LAST' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='LAST' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-        Last Name</th>
+        <i *ngIf="lastTog==='LAST' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i>        Last Name</th>
       <th (click)="sortParam('Q1')">
         <i *ngIf="lastTog==='Q1' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='Q1' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-          Q1</th>
+        <i *ngIf="lastTog==='Q1' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i> Q1
+      </th>
       <th (click)="sortParam('Q2')"><i *ngIf="lastTog==='Q2' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='Q2' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-        Q2</th>
+        <i *ngIf="lastTog==='Q2' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i> Q2
+      </th>
       <th (click)="sortParam('Q3')"><i *ngIf="lastTog==='Q3' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='Q3' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-        Q3</th>
+        <i *ngIf="lastTog==='Q3' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i> Q3
+      </th>
       <th (click)="sortParam('Q4')"><i *ngIf="lastTog==='Q4' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='Q4' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-        Q4</th>
+        <i *ngIf="lastTog==='Q4' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i> Q4
+      </th>
       <th (click)="sortParam('FY')"><i *ngIf="lastTog==='FY' && sortDesc===true" class="material-icons" style=" font-size: 16px">arrow_downward</i>
-        <i *ngIf="lastTog==='FY' && sortDesc===false"
-          class="material-icons" style=" font-size: 16px">arrow_upward</i>
-        FY</th>
+        <i *ngIf="lastTog==='FY' && sortDesc===false" class="material-icons" style=" font-size: 16px">arrow_upward</i> FY
+      </th>
     </tr>
     <tr *ngFor="let point of points">
       <td>{{point.FIRST_NAME}}</td>
@@ -43,5 +36,4 @@
       <td>{{point.FY_PTS}}</td>
     </tr>
   </table>
-  <button md-raised-button (click)="goBack()">Back</button>
 </div>
