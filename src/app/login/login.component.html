@@ -4,24 +4,28 @@
     <h2 class="title">Admin Login</h2>
     <form #loginForm="ngForm" novalidate (ngSubmit)="login()">
       <div class="form-group">
-        <div class="input-container">
+        <div class="input-container upper">
           <input type="text" class="form-control" required [(ngModel)]="payload.username" name="user" #user="ngModel">
           <label for="#{label}">Username</label>
           <div class="bar"></div>
         </div>
-        <small [hidden]="user.valid || (user.pristine && !loginForm.submitted)" class="text-danger">
+        <div class="input-container" id="username-warning">
+          <small [hidden]="user.valid || (user.pristine && !loginForm.submitted)" class="text-danger">
             Username is required.
           </small>
+        </div>
       </div>
       <div class="form-group">
-        <div class="input-container">
+        <div class="input-container upper">
           <input type="password" required [(ngModel)]="payload.password" name="pwd" #pwd="ngModel">
           <label for="#{label}">Password</label>
           <div class="bar"></div>
         </div>
-        <small [hidden]="pwd.valid || (pwd.pristine && !loginForm.submitted)" class="text-danger">
+        <div class="input-container" id="password-warning">
+          <small [hidden]="pwd.valid || (pwd.pristine && !loginForm.submitted)" class="text-danger">
             Password is required.
           </small>
+        </div>
       </div>
       <div class="button-container">
         <button type="submit"><span>Go</span></button>

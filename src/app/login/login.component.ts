@@ -27,7 +27,14 @@ export class LoginComponent {
         }
       });
     }
-
+    else {
+      if (this.payload['username'] == undefined) {
+        document.getElementById("username-warning").style.marginBottom = "36px";
+      }
+      if (this.payload['password'] == undefined) {
+        document.getElementById("password-warning").style.marginBottom = "36px";
+      }
+    }
   }
   logout() {
     this.authService.logout();

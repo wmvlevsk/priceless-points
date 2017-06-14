@@ -1,5 +1,6 @@
 <div *ngIf="employeeInfo" style="width:100%">
-  <div style="text-align:center"><div class="avatar"></div></div>
+  <div style="text-align:center"><div class="avatar"></div><div>
+    {{employeeInfo.total_points}}</div></div>
   <div *ngIf="employeeInfo.activities; else emptyInfo">
     <h1>{{employeeInfo.first_name}} {{employeeInfo.last_name}}</h1>
     <md-card>

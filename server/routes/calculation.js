@@ -28,6 +28,9 @@ module.exports = {
                 var activityHash = {};
                 data.rows.forEach(function (obj) {
                     activityHash[obj.ID] = [obj.ACTIVITY_NAME, obj.POINT_VALUE];
+                    if(obj.POINT_LIMIT != null){
+                        activityHash[obj.ID].push(obj.POINT_LIMIT);
+                    }
                 });
                 resolve(activityHash);
             })
@@ -38,8 +41,13 @@ module.exports = {
                     var bulkInsert = {};
                     data.rows.forEach(function (obj) {
                         if (bulkInsert[obj.EMPLOYEE_ID]) {
-                            //already exists
-                            bulkInsert[obj.EMPLOYEE_ID] = module.exports.calculate(bulkInsert[obj.EMPLOYEE_ID], [obj.ACTIVITY_ID, obj.ENT_DT], activity_data);
+                            // if(activity_data[obj.ACTIVITY_ID][2] == null){
+                                //already exists
+                                bulkInsert[obj.EMPLOYEE_ID] = module.exports.calculate(bulkInsert[obj.EMPLOYEE_ID], [obj.ACTIVITY_ID, obj.ENT_DT], activity_data);
+                            // }
+                            // else{
+                            //     bulkInsert[obj.EMPLOYEE_ID] = module.exports.calculate(bulkInsert[obj.EMPLOYEE_ID], [obj.ACTIVITY_ID, obj.ENT_DT], activity_data);
+                            // }
                         }
                         else {
                             //create

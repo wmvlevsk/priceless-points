@@ -11,7 +11,6 @@ import { UserDetailService } from './user-detail.service';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
-  @Input() employeeID: number;
   employeeInfo: Object;
   constructor(
     private userDetailService: UserDetailService,

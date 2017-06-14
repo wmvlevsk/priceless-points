@@ -63,7 +63,7 @@ router.get('/employees/:q?', (req, res) => {
 router.get('/employee/:id', (req, res) => {
   var e_id = req.params.id;
   var quarter = 0;
-  manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name, e.email, pt.ent_dt, a.activity_name, a.point_value FROM EMPLOYEE e LEFT JOIN POINT_TALLY pt ON e.employee_id = pt.employee_id INNER JOIN ACTIVITY a ON pt.activity_id = a.id WHERE e.employee_id = ?', [e_id], function (err, data) {
+  manageDB.executeQueryWithParams('SELECT e.first_name, e.last_name, e.email, pt.ent_dt, a.activity_name, a.point_value, rp.fy_pts FROM EMPLOYEE e LEFT JOIN POINT_TALLY pt ON e.employee_id = pt.employee_id INNER JOIN ACTIVITY a ON pt.activity_id = a.id INNER JOIN REF_POINTS rp ON e.employee_id = rp.employee_id WHERE e.employee_id = ?', [e_id], function (err, data) {
     if (data.rows.length > 0) {
       var activities = [];
       for (var i = 0; i < data.rows.length; i++) {
@@ -77,6 +77,7 @@ router.get('/employee/:id', (req, res) => {
         "first_name": data.rows[0].first_name,
         "last_name": data.rows[0].last_name,
         "email": data.rows[0].email,
+        "total_points": data.rows[0].fy_pts,
         "activities": activities
       }
       res.status(200).json(responseObject);
