@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule, MdMenuModule, MdSnackBarModule } from '@angular/material';
+import {MdButtonModule, MdSlideToggleModule, MdToolbarModule, MdSidenavModule, MdMenuModule, MdSnackBarModule, MdInputModule, MdAutocompleteModule, MdTabsModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import * as $ from 'jquery';
@@ -14,7 +14,6 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { FullListComponent } from './full-list/full-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailService } from './user-detail/user-detail.service';
-import { FireworksComponent } from './fireworks/fireworks.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/admin.service';
 import { AuthGuard } from './auth-guard.service';
@@ -39,10 +38,6 @@ const ROUTES = [
     component: FullListComponent
   },
   {
-    path: 'fireworks',
-    component: FireworksComponent
-  },
-  {
     path: 'user/:id',
     component: UserDetailComponent
   },
@@ -63,13 +58,13 @@ const ROUTES = [
     LeaderboardComponent,
     FullListComponent,
     UserDetailComponent,
-    FireworksComponent,
     AdminComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MdButtonModule,
     BrowserAnimationsModule,
@@ -78,6 +73,9 @@ const ROUTES = [
     MdSidenavModule,
     MdMenuModule,
     MdSnackBarModule,
+    MdInputModule,
+    MdAutocompleteModule,
+    MdTabsModule,
     LoginRoutingModule,
     RouterModule.forRoot(ROUTES) // Add routes to the app
   ],

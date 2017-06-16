@@ -94,6 +94,66 @@ router.get('/employee/:id', (req, res) => {
   });
 });
 
+/**
+ * Batch insert or update of employees
+ * @param {[[]]} /:req.body.records
+ */
+router.post('/addEmployees', (req, res) => {
+  var newEmployees = req.body.records;
+  var auditName = req.body.uploadFileName;
+  function loadUsers() {
+    return new Promise(function (resolve, reject) {
+      newEmployees.forEach(function (obj) {
+        console.log(obj);
+        if (obj.length > 3) {
+          throw ('{ "status": "Error: bad input!"}');
+        }
+        manageDB.executeQueryWithParams('INSERT INTO EMPLOYEE (EMPLOYEE_ID, LAST_NAME, FIRST_NAME) VALUES ? ON DUPLICATE KEY UPDATE FIRST_NAME = ?, LAST_NAME = ?', [[obj], obj[2], obj[1]], function (err, data) {
+        });
+      })
+      //Audit table
+      manageDB.executeQueryWithParams('INSERT INTO LOAD_AUD (FILE_NAME) VALUES (?)', [auditName], function (err, data) {
+      });
+      resolve();
+    });
+  }
+
+  loadUsers().then(function (data) {
+    var employeeCount = new Promise(function (resolve, reject) {
+      manageDB.executeQuery('SELECT E.EMPLOYEE_ID, E.FIRST_NAME, E.LAST_NAME FROM EMPLOYEE E', function (err, data) {
+        var bulkInsert = {};
+        data.rows.forEach(function (obj) {
+          if (!bulkInsert[obj.EMPLOYEE_ID]) {
+            bulkInsert[obj.EMPLOYEE_ID] = [obj.EMPLOYEE_ID, obj.FIRST_NAME, obj.LAST_NAME, 0, 0, 0, 0];
+          }
+        });
+        resolve(bulkInsert);
+      })
+    });
+    employeeCount.then(obj => {
+      var finalInsert = new Promise(function (resolve, reject) {
+        for (key in obj) {
+          manageDB.executeQueryWithParams('INSERT INTO REF_POINTS (EMPLOYEE_ID, FIRST_NAME, LAST_NAME, Q1_PTS, Q2_PTS, Q3_PTS, Q4_PTS) VALUES ? ON DUPLICATE KEY UPDATE EMPLOYEE_ID = ?, FIRST_NAME = (?), LAST_NAME = (?), Q1_PTS = ?, Q2_PTS = ?, Q3_PTS = ?, Q4_PTS = ?', [[obj[key]], obj[key][0], obj[key][1], obj[key][2], obj[key][3], obj[key][4], obj[key][5], obj[key][6]], function (err, data) {
+          });
+        }
+        resolve();
+      });
+      finalInsert.then(obj => {
+        pointCalculationModule.pointCalculate().then(obj => {
+          res.status(200).send(JSON.parse('{ "status": "Success!"}'));
+        })
+      })
+        .catch(error => {
+          // throw ('{ "status": "Error: bad input!"}');
+          res.status(500).send(JSON.parse(error));
+        });;
+    });
+  })
+    .catch(error => {
+      res.status(500).send(JSON.parse(error));
+    });
+});
+
 
 /**
  * Batch insert or update of employees

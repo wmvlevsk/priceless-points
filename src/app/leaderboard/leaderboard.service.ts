@@ -12,4 +12,5 @@ export class LeaderboardService {
     return this.http.get(this.url + '/api/points')
       .map(res => res.json());
   }
+
 }

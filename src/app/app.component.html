@@ -1,15 +1,25 @@
 <div class="wrapper">
-  <md-toolbar color="primary">
-    <div style="color: white">{{title}}</div>
-    <span class="example-spacer"></span>
-    <span>
-    <div><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a>     |     
-    <a routerLink="/fullList" routerLinkActive="active">Full List</a>     |
-    <a routerLink="/admin" routerLinkActive="active">Admin</a>     |
-    <a routerLink="/login" *ngIf="!authService.isLoggedIn" routerLinkActive>Log in</a>  
-    <a routerLink="/" *ngIf="authService.isLoggedIn" routerLinkActive (click)="logout()">Log Out</a>  
-    </div>
-  </span>
-  </md-toolbar>
+  <nav md-tab-nav-bar class="navBar">
+    <a md-tab-link id="fullList"
+      routerLink="/fullList"
+      routerLinkActive #fla="routerLinkActive"
+      [active]="fla.isActive">
+    Full List
+    </a>
+    <a md-tab-link
+      routerLink="/leaderboard"
+      routerLinkActive #pla="routerLinkActive"
+      [active]="pla.isActive">
+    Pulse Points Leaderboard!
+    </a>
+    <a md-tab-link
+      routerLink="/login"
+      routerLinkActive #lla="routerLinkActive"
+      [active]="lla.isActive">
+    Admin
+    </a>
+  </nav>
   <router-outlet></router-outlet>
 </div>
+    <!--<a routerLink="/login" *ngIf="!authService.isLoggedIn" routerLinkActive>Log in</a>  
+    <a routerLink="/" *ngIf="authService.isLoggedIn" routerLinkActive (click)="logout()">Log Out</a>  -->
