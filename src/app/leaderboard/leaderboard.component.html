@@ -1,84 +1,15 @@
 <div class="container">
-  <div>
-    <!--<h2>{{horizon ? 'Annual' : 'Quarterly'}} <i class="material-icons md-18">http</i></h2>
+  <div class="card">
+     <!--<button md-fab id="switch" (click)="switch()"></button>-->
     <div class="toggleView" color="primary">
-      By Quarter
-      <md-slide-toggle (click)="toggleView()"></md-slide-toggle>By Year
+      <div class="toggleLabel">
+        <p *ngIf="quarterlyView">Quarterly</p>
+        <p *ngIf="!quarterlyView">Yearly</p>
+      </div>
+      <md-slide-toggle (click)="switch()" class="toggleSlide" color="primary"></md-slide-toggle>
     </div>-->
 
-    <!--<div *ngIf="!horizon; else annualBlock">
-
-      We are currently in <b>Q{{dateInformation.currentQuarter}}</b> and there are
-      <div class="emphasis">{{dateInformation.daysLeft}}</div> days left until the next quarter.
-      <br>
-      <div class="row" *ngFor="let point of points; let i=index">
-        <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
-          <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
-          <p class="card-text">{{point.quarter}}</p>
-        </div>
-      </div>
-      <table>
-        <tr>
-          <th>Member</th>
-          <th>Q{{dateInformation.currentQuarter}}</th>
-        </tr>
-        <tr *ngFor="let point of points">
-          <td>{{point.FIRST_NAME}} {{point.LAST_NAME}}</td>
-          <td>{{point.quarter}}</td>
-        </tr>
-      </table>
-    </div>
-    <ng-template #annualBlock>
-      There are
-      <div class="emphasis">{{dateInformation.daysLeftInYear}}</div> days left until the next year.
-      <br>
-      <div class="row" *ngFor="let point of points; let i=index">
-        <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="card card-block" *ngIf="i<3">
-          <h4 class="card-title">{{point.FIRST_NAME}} {{point.LAST_NAME}}</h4>
-          <p class="card-text">{{point.FY_PTS}}</p>
-        </div>
-      </div>
-      <table>
-        <tr>
-          <th>Member</th>
-          <th>FY</th>
-        </tr>
-        <tr *ngFor="let point of points">
-          <td>{{point.FIRST_NAME}} {{point.LAST_NAME}}</td>
-          <td>{{point.FY_PTS}}</td>
-        </tr>
-      </table>
-    </ng-template>-->
-
-    <div class="card alt">
-      <div class="toggle"></div>
-      <h1 class="title">Register
-        <div class="close"></div>
-      </h1>
-      <form>
-        <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Username</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="input-container">
-          <input type="#{type}" id="#{label}" required="required"/>
-          <label for="#{label}">Repeat Password</label>
-          <div class="bar"></div>
-        </div>
-        <div class="button-container">
-          <button><span>Next</span></button>
-        </div>
-      </form>
-    </div>
-
-
-    <div class="scoreboard">
+    <div class="scoreboard" *ngIf="quarterlyView">
       <div class="scoreboard__podiums">
         <div class="scoreboard__podiumContainer" *ngFor="let point of points; let i=index">
           <div class="scoreboard__podium js-podium" data-height="200px" *ngIf="i==1" [routerLink]="['/user', point.EMPLOYEE_ID]" >
@@ -126,7 +57,7 @@
             {{ point.FIRST_NAME }} {{ point.LAST_NAME }}
           </md-option>
         </md-autocomplete>
-         <button md-raised-button (click)="searchScroll()" id="searchButton">Search</button> 
+         <button md-fab (click)="searchScroll()" id="searchButton"></button> 
       </div>
       <div class="scoreboard__items" id="scoreboard__items" start="4" >
           <div *ngFor="let point of points; let i=index" class="row">
@@ -145,5 +76,74 @@
           </div>
         </div>
     </div>
+    <!-- ****************************************** YEARLY THEME ******************************************* -->
+    <div class="scoreboard" id="alt__scoreboard" *ngIf="!quarterlyView">
+      <div class="alt__scoreboard__podiums">
+        <div class="scoreboard__podiumContainer" *ngFor="let point of points; let i=index">
+          <div class="scoreboard__podium js-podium" data-height="200px" *ngIf="i==1" [routerLink]="['/user', point.EMPLOYEE_ID]" >
+            <div class="scoreboard__podium-base scoreboard__podium-base--second">
+              <div class="scoreboard__podium-rank">2</div>
+            </div>
+            <div class="scoreboard__podium-number">
+              {{point.FIRST_NAME}} {{point.LAST_NAME}}
+              <small><span class="js-podium-data">{{point.FY_PTS}}</span></small>
+            </div>
+          </div>
+        </div>
+          <div class="scoreboard__podiumContainer" *ngFor="let point of points; let i=index">
+            <div class="scoreboard__podium js-podium" data-height="250px" *ngIf="i==0" [routerLink]="['/user', point.EMPLOYEE_ID]">
+                <div class="scoreboard__podium-base scoreboard__podium-base--first">
+                    <div class="scoreboard__podium-rank">1</div>
+
+                </div>
+                <div class="scoreboard__podium-number">
+                    {{point.FIRST_NAME}} {{point.LAST_NAME}}
+                    <small><span class="js-podium-data">{{point.FY_PTS}}</span></small>
+                </div>
+            </div>
+          </div>
+          <div class="scoreboard__podiumContainer" *ngFor="let point of points; let i=index">
+            <div class="scoreboard__podium js-podium" data-height="150px" *ngIf="i==2" [routerLink]="['/user', point.EMPLOYEE_ID]">
+                <div class="scoreboard__podium-base scoreboard__podium-base--third">
+                    <div class="scoreboard__podium-rank">3</div>
+                </div>
+                <div class="scoreboard__podium-number">
+                    {{point.FIRST_NAME}} {{point.LAST_NAME}}
+                    <small><span class="js-podium-data">{{point.FY_PTS}}</span></small>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="searchContainer">
+
+        <md-input-container class="searchBar">
+           <input type="text" placeholder="Search" mdInput [formControl]="myControl" [mdAutocomplete]="auto">
+        </md-input-container>
+
+        <md-autocomplete #auto="mdAutocomplete">
+          <md-option *ngFor="let point of filteredOptions | async" [value]="point.FIRST_NAME + ' ' + point.LAST_NAME"  (click)="setId(point.EMPLOYEE_ID)">
+            {{ point.FIRST_NAME }} {{ point.LAST_NAME }}
+          </md-option>
+        </md-autocomplete>
+         <button md-fab (click)="searchScroll()" id="searchButton"></button> 
+      </div>
+      <div class="scoreboard__items" id="scoreboard__items" start="4" >
+          <div *ngFor="let point of points; let i=index" class="row">
+            <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="scoreboard__item" id="{{point.EMPLOYEE_ID}}" data-count="0"> <!-- *ngIf="i>2"-->
+                <div class="scoreboard__title"> #{{i+1}}   {{point.FIRST_NAME}} {{point.LAST_NAME}}</div>
+                <div class="scoreboard__status">
+                    <div class="js-oneup">{{point.EMPLOYEE_ID}}</div>
+                </div>
+                <div class="scoreboard__numbers">
+                    <span class="js-number">{{point.FY_PTS}}</span>
+                </div>
+                <div class="alt__scoreboard__bar js-bar">
+                    <div class="alt__scoreboard__bar-bar"></div>
+                </div> 
+            </div>
+          </div>
+        </div>
+    </div>
+
   </div>
 </div>

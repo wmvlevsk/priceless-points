@@ -15,6 +15,7 @@ export class LeaderboardComponent implements OnInit {
   points: any = [];
   dateInformation: Object;
   selectedEmployeeID: Number;
+  quarterlyView: any;
 
   myControl: FormControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -26,12 +27,20 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit() {
     // Retrieve posts from the API
     this.dateInformation = this.daysLeftInQuarter();
+   
+    quarterly = true;
     this.leaderboardService.getFullList().subscribe(points => {
-      this.points = points.sort(function(a,b){return b.quarter-a.quarter});
-       sum = this.points[0].FY_PTS; // rank 1.
-    });
+      if(quarterly){
+        this.points = points.sort(function(a,b){return b.quarter-a.quarter});
+        sum = this.points[0].quarter;  // rank 1.
+      } else {
+        this.points = this.points.sort(function(a,b){return b.FY_PTS-a.FY_PTS});
+        sum = this.points[0].FY_PTS; // rank 1.
+      } 
+    }); 
+    
     this.callScoreboard();
-
+  
     this.filteredOptions = this.myControl.valueChanges
         .startWith(null)
         .map(val => val ? this.filter(val) : this.points.slice());
@@ -65,9 +74,11 @@ export class LeaderboardComponent implements OnInit {
     this.horizon = !this.horizon;
     if(!this.horizon){
       this.points = this.points.sort(function(a,b){return b.quarter-a.quarter});
+      sum = this.points[0].quarter;
     }
     else{
       this.points = this.points.sort(function(a,b){return b.FY_PTS-a.FY_PTS});
+      sum = this.points[0].FY_PTS;
     }
   }
 
@@ -76,6 +87,7 @@ export class LeaderboardComponent implements OnInit {
    }
 
  callScoreboard(){
+  this.quarterlyView = quarterly;
   setTimeout( function(){
      $('.js-podium').each(function(){
         var t = $(this);
@@ -87,7 +99,11 @@ export class LeaderboardComponent implements OnInit {
         }, time);
       });
    
+   if(quarterly){
     startBars();
+   } else {
+    startAltBars();
+   }
     countUp();   
   }, 50);
 }
@@ -97,8 +113,6 @@ setId(employeeID: Number){
 }
 
 searchScroll(){
-    console.log($("#" + searchId));
-    console.log($("#" + searchId).parent());
     $('#scoreboard__items').animate({
         scrollTop:$("#" + searchId).offset().top - $('#scoreboard__items').offset().top
     }, 800);
@@ -106,11 +120,31 @@ searchScroll(){
   
 }
 
+switch(){
+  
+  // //$('body').stop().removeClass('mat-app-background');
+  // $('.card').stop().removeClass('mat-app-background');
+  // $('.card').stop().addClass('dark-mode');
+  //  $('.js-podium').each(function(){
+  //     var t = $(this);
+  //      t.removeClass('is-visible');
+  //  });
+  //   $('.searchContainer').removeClass('is-visible');
+  this.toggleView();
+  if(quarterly){
+  quarterly = false;
+  } else {
+  quarterly = true;  
+  }
+   this.callScoreboard();
+
+}
 
 }
 
 //**************************LEADERBOARD FUNCTIONS 
  var time = 250;
+ var quarterly = true;
  var sum;
  var searchId;   
 
@@ -151,6 +185,21 @@ function startBars() {
   });
 }
 
+function startAltBars() {
+ $('.js-bar').each(function() {
+  // calculate %.
+  var t = $(this);
+   setTimeout( function(){ 
+  var width = Number(t.parent('div').find('.js-number').text());
+  width = width  / sum * 100;
+     width = Math.round(width);
+  t.find('.alt__scoreboard__bar-bar').css('width',  width + "%");
+     t.parent('div').addClass('is-visible');
+      }, time + 500);
+   time += 0;
+  });
+}
+
 function scrollTo(element, to, duration) {
         if (duration < 0) return;
         var difference = to - element.scrollTop;
@@ -161,3 +210,11 @@ function scrollTo(element, to, duration) {
         scrollTo(element, to, duration - 2);
     }, 10);
 }
+
+// $('.toggle').on('click', function() {
+//   $('.container').stop().addClass('.dark-mode');
+// });
+
+// $('.close').on('click', function() {
+//   $('.container').stop().removeClass('.dark-mode');
+// });
