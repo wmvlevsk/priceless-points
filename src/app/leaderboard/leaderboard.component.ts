@@ -94,6 +94,8 @@ export class LeaderboardComponent implements OnInit {
         setTimeout( function(){ 
           t.addClass('is-visible');
           $('.searchContainer').addClass('is-visible');
+          $('.viewLabel').addClass('is-visible');
+          $('.switchButtons').addClass('is-visible');
           var h = t.data('height');
           t.find('.scoreboard__podium-base').css('height', h).addClass('is-expanding');
         }, time);

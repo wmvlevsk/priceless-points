@@ -332,7 +332,7 @@ body {
 }
 
 .searchContainer {
-  padding-left: 30%;
+  padding-left: 33%;
   opacity: 0;
   &.is-visible {
       opacity: 1;
@@ -345,18 +345,57 @@ body {
 }
 
 #searchButton {
-  background-color: #fafafa;
-  top: 1.3rem;
+  background-color: white;
+  width: 62px !important;
+  min-width: 62px !important;
 }
 
-.toggleLabel {
+#switchQ {
   position: absolute;
-  right: inherit;
-  margin-right: 50px;
+  right: -28px;
+  top: 3.5rem;
+  background-color: $ALTsecond;
+  //margin-right: 50px;
+}
+#switchY {
+  position: absolute;
+  right: -28px;
+  top: 3.5rem;
+  background-color: $second;
+  //margin-right: 50px;
 }
 
-.toggleSlide {
-  right: inherit;
+#quarterlyLabel {
   position: absolute;
-  top: 5px;
+  font-size: 25px;
+  top: 3.5rem;
+  left: 45.5%;
+}
+
+#yearlyLabel {
+  position: absolute;
+  font-size: 25px;
+  top: 3.5rem;
+  left: 47%;
+}
+
+.switchButtons {
+  opacity: 0;
+    &.is-visible {
+        opacity: 1;
+        transition: all 500ms ease-in-out;
+      }
+}
+ 
+.viewLabel {
+  opacity: 0;
+    &.is-visible {
+        opacity: 1;
+        transition: all 500ms ease-in-out;
+      }
+}
+
+.icon__black {
+  color: black;
+  font-size: 30px;
 }
