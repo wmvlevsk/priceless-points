@@ -57,7 +57,7 @@
       </div>
       <div class="scoreboard__items" id="scoreboard__items" start="4" >
           <div *ngFor="let point of points; let i=index" class="row">
-            <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="scoreboard__item" id="{{point.EMPLOYEE_ID}}" data-count="0"> <!-- *ngIf="i>2"-->
+            <div *ngIf="i<100" [routerLink]="['/user', point.EMPLOYEE_ID]" class="scoreboard__item" id="{{point.EMPLOYEE_ID}}" data-count="0"> <!-- *ngIf="i>2"-->
                 <div class="scoreboard__title"> #{{i+1}}   {{point.FIRST_NAME}} {{point.LAST_NAME}}</div>
                 <div class="scoreboard__status">
                     <div class="js-oneup">{{point.EMPLOYEE_ID}}</div>
@@ -125,7 +125,7 @@
       </div>
       <div class="scoreboard__items" id="scoreboard__items" start="4" >
           <div *ngFor="let point of points; let i=index" class="row">
-            <div [routerLink]="['/user', point.EMPLOYEE_ID]" class="scoreboard__item" id="{{point.EMPLOYEE_ID}}" data-count="0"> <!-- *ngIf="i>2"-->
+            <div *ngIf="i<100" [routerLink]="['/user', point.EMPLOYEE_ID]" class="scoreboard__item" id="{{point.EMPLOYEE_ID}}" data-count="0"> <!-- *ngIf="i>2"-->
                 <div class="scoreboard__title"> #{{i+1}}   {{point.FIRST_NAME}} {{point.LAST_NAME}}</div>
                 <div class="scoreboard__status">
                     <div class="js-oneup">{{point.EMPLOYEE_ID}}</div>

@@ -37,13 +37,13 @@ export class LeaderboardComponent implements OnInit {
         this.points = this.points.sort(function(a,b){return b.FY_PTS-a.FY_PTS});
         sum = this.points[0].FY_PTS; // rank 1.
       } 
-    }); 
     
     this.callScoreboard();
   
     this.filteredOptions = this.myControl.valueChanges
         .startWith(null)
         .map(val => val ? this.filter(val) : this.points.slice());
+    }); 
   }
 
   daysLeftInQuarter() {
@@ -115,10 +115,15 @@ setId(employeeID: Number){
 }
 
 searchScroll(){
-    $('#scoreboard__items').animate({
-        scrollTop:$("#" + searchId).offset().top - $('#scoreboard__items').offset().top
-    }, 800);
-    $("#" + searchId).parent().effect("highlight", {}, 3000);
+    var diff = $("#" + searchId).offset().top - $('#scoreboard__items').offset().top;
+    prevSearchOffSet += diff;
+    if( diff < 1 && diff > -1) {
+      // DONT SCROLL
+    } else {
+      $('#scoreboard__items').animate({
+        scrollTop:prevSearchOffSet
+      }, 800);
+  }
   
 }
 
@@ -149,6 +154,7 @@ switch(){
  var quarterly = true;
  var sum;
  var searchId;   
+ var prevSearchOffSet = 0;
 
 function countUp() {
   $('.scoreboard__item').each(function() {
